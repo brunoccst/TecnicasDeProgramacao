@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -53,10 +60,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="console" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Component id="console" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="importarLogging" min="-2" pref="260" max="-2" attributes="0"/>
-                              <EmptySpace pref="62" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="inserirDados" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -73,7 +80,7 @@
                           <Component id="inserirDados" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="console" pref="240" max="32767" attributes="0"/>
+                      <Component id="console" pref="194" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -112,8 +119,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scroll_relatorios" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Component id="scroll_relatorios" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="data_label" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="data_formatada" min="-2" pref="102" max="-2" attributes="0"/>
@@ -121,7 +128,7 @@
                               <Component id="seletor_parquimetro" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="parquimetro_selecionado" min="-2" pref="124" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="229" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="173" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -139,7 +146,7 @@
                           <Component id="parquimetro_selecionado" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scroll_relatorios" pref="248" max="32767" attributes="0"/>
+                      <Component id="scroll_relatorios" pref="202" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -234,16 +241,24 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="data_inicio_label" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="data_inicio_text" min="-2" pref="81" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="data_fim_label" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="data_fim_text" min="-2" pref="88" max="-2" attributes="0"/>
-                              <EmptySpace pref="245" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="painel_grafico" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="data_inicio_label" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="data_inicio_text" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="data_fim_label" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="data_fim_text" min="-2" pref="88" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="gerarGeral" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="102" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -256,8 +271,10 @@
                                   <Component id="data_inicio_text" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="data_fim_label" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="data_fim_text" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="gerarGeral" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="237" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="painel_grafico" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -287,6 +304,18 @@
                         </Property>
                       </Properties>
                     </Component>
+                    <Container class="java.awt.Panel" name="painel_grafico">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+                    </Container>
+                    <Component class="javax.swing.JButton" name="gerarGeral">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Gerar"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="gerarGeralMouseClicked"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="porParquimetro">
@@ -304,22 +333,22 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="scroll_parquimetro" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
+                                  <Component id="scroll_parquimetro" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="parquimetro_grafico" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="endereco_label" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="endereco_texto" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
+                                          <Component id="endereco_texto" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
                                               <Component id="seletor_parquimetro_grafico" min="-2" pref="122" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="ano_label" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jFormattedTextField1" min="-2" pref="70" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="254" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="198" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -344,7 +373,7 @@
                                   <Component id="endereco_texto" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="scroll_parquimetro" pref="200" max="32767" attributes="0"/>
+                              <Component id="scroll_parquimetro" pref="154" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

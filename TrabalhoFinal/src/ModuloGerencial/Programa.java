@@ -1,5 +1,11 @@
 package ModuloGerencial;
 
+import apresentacao.GeradorDeGrafico;
+import apresentacao.View;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import persistencia.CartaoDAO;
 
 /**
@@ -12,6 +18,9 @@ public class Programa {
     {
         Cartao c = CartaoDAO.creteNewCartao(true);
         System.out.println(c.getID());
+        
+//        View view = new View();
+//        view.setVisible(true);
     }
     
 }

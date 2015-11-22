@@ -26,6 +26,7 @@ public class DBConnection {
     
     public static Connection getConexaoViaDriverManager() throws Exception {
         return DriverManager.getConnection(DB_CONN_STRING_CREATE, USER_NAME, PASSWORD);
+//          return DriverManager.getConnection("jdbc:derby:TrabalhoFinal","usuario","senha");
     }
 
     public static Connection getConexaoViaDataSource() throws Exception {
