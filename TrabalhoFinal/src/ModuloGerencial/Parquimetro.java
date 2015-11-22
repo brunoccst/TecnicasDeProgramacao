@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Parquimetro {
+    private final int tarifa = 25;
+    private final int incrementoDeTempo = 10;
+    
     private int id;
     private Moeda[] moedas;
     private int nroTicket; //TODO: Deletar depois! Utilizar o numero gerado pelo banco.
@@ -29,13 +32,24 @@ public class Parquimetro {
             new Moeda(TipoMoeda.UmReal, 100, qtdUmReal) };
     }
     
-    public ArrayList<Moeda> EmiteTicket(TipoPagamento pagamento, int tempo) throws Exception
+    public ArrayList<Moeda> EmiteTicket(TipoPagamento pagamento, ArrayList<Moeda> moedas)
     {
+        int tempo = geraTempo(moedas);
         Ticket novoTicket = new Ticket(this, nroTicket, tempo, Calendar.getInstance());
         ArrayList<Moeda> troco = verificaTroco(novoTicket);
         if (troco == null) return null;
         nroTicket++;
         return troco;
+    }
+    
+    private int geraTempo(ArrayList<Moeda> pagamento)
+    {
+        int total = 0;
+        for (Moeda m : pagamento)
+        {
+            total = m.getValor();
+        }
+        return (total / tarifa) * incrementoDeTempo;
     }
     
     //Verifica o troco para moedas! Para outros tipos devemos retornar uma lista vazia sempre.
