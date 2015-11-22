@@ -5,15 +5,15 @@
  */
 package ModuloGerencial;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  *
  * @author feliperiffel
  */
 public class Configuracoes {
-    private LocalDateTime inicioTarifacao;
-    private LocalDateTime fimTarifacao;
+    private LocalTime inicioTarifacao;
+    private LocalTime fimTarifacao;
     private int tempoMinimo;
     private int tempoMaximo;
     private int incremento;
@@ -21,7 +21,7 @@ public class Configuracoes {
     private boolean moeda5, moeda10, moeda25, moeda50, moeda100;
     private boolean cartaoRecarregavel, cartaoResidente;
     
-    public Configuracoes(LocalDateTime inicioTarifacao, LocalDateTime fimTarifacao, int tempoMinimo, int tempoMaximo, int incremento, double tarifaIncremento, boolean moeda5, boolean moeda10, boolean moeda25, boolean moeda50, boolean moeda100, boolean cartaoRecarregavel, boolean cartaoResidente){
+    public Configuracoes(LocalTime inicioTarifacao, LocalTime fimTarifacao, int tempoMinimo, int tempoMaximo, int incremento, double tarifaIncremento, boolean moeda5, boolean moeda10, boolean moeda25, boolean moeda50, boolean moeda100, boolean cartaoRecarregavel, boolean cartaoResidente){
         this.inicioTarifacao = inicioTarifacao;
         this.fimTarifacao = fimTarifacao;
         this.tempoMinimo = tempoMinimo;
@@ -36,12 +36,16 @@ public class Configuracoes {
         this.cartaoRecarregavel = cartaoRecarregavel;
         this.cartaoResidente = cartaoResidente;
     }
+
+    public Configuracoes(LocalTime of, LocalTime of0, int i, int i0, int i1, int i2, int i3, boolean b, boolean b0, boolean b1, boolean b2, boolean b3, boolean b4, boolean b5) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    public LocalDateTime getInicioTarifacao(){
+    public LocalTime getInicioTarifacao(){
         return inicioTarifacao;
     }
     
-    public LocalDateTime getFimTarifacao(){
+    public LocalTime getFimTarifacao(){
         return fimTarifacao;
     }
     
@@ -89,11 +93,11 @@ public class Configuracoes {
         return cartaoResidente;
     }
     
-    public void setInicioTarifacao(LocalDateTime novoInicioTarifacao){
+    public void setInicioTarifacao(LocalTime novoInicioTarifacao){
         inicioTarifacao = novoInicioTarifacao;
     }
     
-    public void setFimTarifacao(LocalDateTime novoFimTarifacao){
+    public void setFimTarifacao(LocalTime novoFimTarifacao){
         fimTarifacao = novoFimTarifacao;
     }
     

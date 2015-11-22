@@ -18,7 +18,7 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
  * @author feliperiffel
  */
 public class DBConnection {
-    public static String DB_CONN_STRING_CREATE = "jdbc:derby:TrabalhoFinal;create=true";
+    public static String DB_CONN_STRING_CREATE = "jdbc:derby://localhost:1527/TrabalhoFinal;create=true";
     public static String DB_NAME = "TrabalhoFinal";
     public static String USER_NAME = "usuario";
     public static String PASSWORD = "senha";
@@ -26,7 +26,6 @@ public class DBConnection {
     
     public static Connection getConexaoViaDriverManager() throws Exception {
         return DriverManager.getConnection(DB_CONN_STRING_CREATE, USER_NAME, PASSWORD);
-//          return DriverManager.getConnection("jdbc:derby:TrabalhoFinal","usuario","senha");
     }
 
     public static Connection getConexaoViaDataSource() throws Exception {

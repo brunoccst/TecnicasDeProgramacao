@@ -44,3 +44,5 @@ Temporary Items
 /TrabalhoFinal/build/
 /TrabalhoFinal/nbproject/private/
 /TrabalhoFinal/dist/
+TrabalhoFinal/build/classes/ModuloGerencial/Parquimetro.class
+*.log
