@@ -1,9 +1,8 @@
 -- Drop das tabelas
+drop table Tickets;
 drop table CartoesRecarregaveis;
 drop table Parquimetros;
 drop table Configuracoes;
-drop table Tickets;
-
 
 create table CartoesRecarregaveis
 (
@@ -20,13 +19,14 @@ create table Parquimetros
 
 create table Tickets
 (
-    parquimetro_id integet not null,
+    parquimetro_id integer not null,
     serial integer not null,
     data_emissao date,
     hora_emissao time,
     data_validade date,
     hora_validade time,
     cartao_id varchar(128),
+    primary Key(parquimetro_id, serial),
     foreign key (parquimetro_id) references Parquimetros (id),
     foreign key (cartao_id) references CartoesRecarregaveis (id)
 );
