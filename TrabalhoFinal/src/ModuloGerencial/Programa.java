@@ -10,7 +10,8 @@ public class Programa {
 
     public static void main(String[] args)
     {
-        Cartao c = CartaoDAO.creteNewCartao(true);
+        CartaoDAO cDao = new CartaoDAO();
+        Cartao c = cDao.creteNewCartao(true);
         System.out.println(c.getID());
     }
     

@@ -4,35 +4,37 @@
  * and open the template in the editor.
  */
 package persistencia;
-import ModuloGerencial.Cartao;
 
+import ModuloGerencial.Parquimetro;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.sql.DataSource;
 
 /**
  *
  * @author feliperiffel
  */
-public class CartaoDAO {
-    
-    public static Cartao creteNewCartao(boolean residente){
+public class ParquimetroDAO {
+    public static Parquimetro creteNewParquimetro(String endereco){
         
-        Cartao novoCartao = null;
+        Parquimetro novoParquimetro = null;
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
-            
-            String cID = RandomString.nextString(128);
-            
-            String sql = "insert into CartoesRecarregaveis(id, saldo, residente) values(?, ?, ?)";
+            //Inserir dados na tabela
+            String sql = "insert into Parquimetros(endereco) values(?)";
             try (PreparedStatement comando = conexao.prepareStatement(sql)) {
-                comando.setString(1, cID);
-                comando.setDouble(2, 0);
-                comando.setInt(3, residente ? 1 : 0);
+                comando.setString(1, endereco);
                 if (comando.executeUpdate() > 0) {
-                    novoCartao = new Cartao(cID, 0, residente);
+                    
+                    //Pega o ID do novo registro
+                    String sql2 = "select * from Parquimetros order by 1 desc fetch first row only";
+                    try (PreparedStatement comando2 = conexao.prepareStatement(sql)) {
+                        try (ResultSet resultados = comando.executeQuery()) {
+                            while (resultados.next()) {
+                                novoParquimetro = new Parquimetro(resultados.getInt("id"), resultados.getString("endereco"));
+                            }
+                        }
+                    }
+                    
                     System.out.println("Inserção efetuada com sucesso");
                 } else {
                     System.out.println("Falha na inserção");
@@ -41,25 +43,25 @@ public class CartaoDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return novoCartao;
+        return novoParquimetro;
     }
     
-    public static Cartao getCartao(String id){
-        Cartao cartao = null;
+    public static Parquimetro getParquimetro(String id){
+        Parquimetro parquimetro = null;
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
             //Consultar dados da tabela
-            String sql = "select * from CartoesRecarregaveis where id = ?";
+            String sql = "select * from Parquimetros where id = ?";
             try (PreparedStatement comando = conexao.prepareStatement(sql)) {
                 comando.setString(1, id);
                 try (ResultSet resultados = comando.executeQuery()) {
                     while (resultados.next()) {
-                        cartao = new Cartao(resultados.getString("id"), resultados.getDouble("saldo"), resultados.getInt("residente") == 1 ? true : false);
+                        parquimetro = new Parquimetro(resultados.getInt("id"), resultados.getString("endereco"));
                     }
                 }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return cartao;
+        return parquimetro;
     }
 }

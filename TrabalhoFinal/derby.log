@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Nov 22 17:11:20 BRST 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0151-309b-9062-00000e9f6e28 
+Sun Nov 22 17:16:35 BRST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0151-30a0-603f-00000e9fa190 
 on database directory /Users/feliperiffel/Documents/TecnicasDeProgramacao/TrabalhoFinal/TrabalhoFinal with class loader sun.misc.Launcher$AppClassLoader@610455d6 
 Loaded from file:/Applications/NetBeans/glassfish-4.1/javadb/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -11,9 +11,9 @@ os.arch=x86_64
 os.version=10.11.1
 derby.system.home=null
 ----------------------------------------------------------------
-Sun Nov 22 17:11:20 BRST 2015:
-Shutting down instance a816c00e-0151-309b-9062-00000e9f6e28 on database directory /Users/feliperiffel/Documents/TecnicasDeProgramacao/TrabalhoFinal/TrabalhoFinal with class loader sun.misc.Launcher$AppClassLoader@610455d6 
-Sun Nov 22 17:11:20 BRST 2015 Thread[main,5,main] Cleanup action starting
+Sun Nov 22 17:16:35 BRST 2015:
+Shutting down instance a816c00e-0151-30a0-603f-00000e9fa190 on database directory /Users/feliperiffel/Documents/TecnicasDeProgramacao/TrabalhoFinal/TrabalhoFinal with class loader sun.misc.Launcher$AppClassLoader@610455d6 
+Sun Nov 22 17:16:35 BRST 2015 Thread[main,5,main] Cleanup action starting
 java.sql.SQLException: Failed to start database 'TrabalhoFinal' with class loader sun.misc.Launcher$AppClassLoader@610455d6, see the next exception for details.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
@@ -28,8 +28,8 @@ java.sql.SQLException: Failed to start database 'TrabalhoFinal' with class loade
 	at java.sql.DriverManager.getConnection(DriverManager.java:664)
 	at java.sql.DriverManager.getConnection(DriverManager.java:247)
 	at persistencia.DBConnection.getConexaoViaDriverManager(DBConnection.java:28)
-	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:26)
-	at ModuloGerencial.Programa.main(Programa.java:13)
+	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:27)
+	at ModuloGerencial.Programa.main(Programa.java:14)
 Caused by: java.sql.SQLException: Failed to start database 'TrabalhoFinal' with class loader sun.misc.Launcher$AppClassLoader@610455d6, see the next exception for details.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
@@ -84,8 +84,8 @@ java.sql.SQLException: Database at /Users/feliperiffel/Documents/TecnicasDeProgr
 	at java.sql.DriverManager.getConnection(DriverManager.java:664)
 	at java.sql.DriverManager.getConnection(DriverManager.java:247)
 	at persistencia.DBConnection.getConexaoViaDriverManager(DBConnection.java:28)
-	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:26)
-	at ModuloGerencial.Programa.main(Programa.java:13)
+	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:27)
+	at ModuloGerencial.Programa.main(Programa.java:14)
 Caused by: java.sql.SQLException: Database at /Users/feliperiffel/Documents/TecnicasDeProgramacao/TrabalhoFinal/TrabalhoFinal has an incompatible format with the current version of the software.  The database was created by or upgraded by version 10.11.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
@@ -137,8 +137,8 @@ java.sql.SQLException: Database at /Users/feliperiffel/Documents/TecnicasDeProgr
 	at java.sql.DriverManager.getConnection(DriverManager.java:664)
 	at java.sql.DriverManager.getConnection(DriverManager.java:247)
 	at persistencia.DBConnection.getConexaoViaDriverManager(DBConnection.java:28)
-	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:26)
-	at ModuloGerencial.Programa.main(Programa.java:13)
+	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:27)
+	at ModuloGerencial.Programa.main(Programa.java:14)
 Caused by: ERROR XSLAN: Database at /Users/feliperiffel/Documents/TecnicasDeProgramacao/TrabalhoFinal/TrabalhoFinal has an incompatible format with the current version of the software.  The database was created by or upgraded by version 10.11.
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.impl.store.raw.log.LogToFile.readControlFile(Unknown Source)
@@ -210,7 +210,7 @@ ERROR XSLAN: Database at /Users/feliperiffel/Documents/TecnicasDeProgramacao/Tra
 	at java.sql.DriverManager.getConnection(DriverManager.java:664)
 	at java.sql.DriverManager.getConnection(DriverManager.java:247)
 	at persistencia.DBConnection.getConexaoViaDriverManager(DBConnection.java:28)
-	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:26)
-	at ModuloGerencial.Programa.main(Programa.java:13)
+	at persistencia.CartaoDAO.creteNewCartao(CartaoDAO.java:27)
+	at ModuloGerencial.Programa.main(Programa.java:14)
 ============= end nested exception, level (3) ===========
 Cleanup action completed

@@ -18,4 +18,5 @@ public interface IParquimetro {
     ArrayList getTickets();
     ArrayList getTikets(LocalDateTime doDia);
     ArrayList getTickets(LocalDateTime doDia, LocalDateTime ateDia);
+    void addTicket(Ticket ticket);
 }
