@@ -1,29 +1,22 @@
 package ModuloGerencial;
 
 public class Moeda {
-    private TipoMoeda tipo;
-    private int valor;
-    private int quantidade;
-    
-    public Moeda(TipoMoeda umTipo, int umValor, int umaQuantidade)
+    private String nome;
+    private double valor;
+
+    public Moeda(String umNome, double umValor)
     {
-        tipo = umTipo;
+        nome = umNome;
         valor = umValor;
-        quantidade = umaQuantidade;
     }
-    
-    public TipoMoeda getTipo()
-    {
-        return tipo;
-    }
-    
-    public int getValor()
+        
+    public double getValor()
     {
         return valor;
     }
     
-    public int getQuantidade()
+    public String getNome()
     {
-        return quantidade;
+        return nome;
     }
 }

@@ -24,52 +24,52 @@ public class Parquimetro {
     {
         id = umId;
         nroTicket = 0; //TODO: Deletar depois! Utilizar o numero gerado pelo banco.
-        moedas = new Moeda[] { new Moeda(TipoMoeda.UmCentavo, 1, qtdUmCtv), 
-            new Moeda(TipoMoeda.CincoCentavos, 5, qtdCincoCtv), 
-            new Moeda(TipoMoeda.DezCentavos, 10, qtdDezCtv), 
-            new Moeda(TipoMoeda.VinteCincoCentavos, 25, qtdVinteCincoCtv), 
-            new Moeda(TipoMoeda.CinquentaCentavos, 50, qtdCinqCtv), 
-            new Moeda(TipoMoeda.UmReal, 100, qtdUmReal) };
+        moedas = new Moeda[] { new Moeda("Um centavo", 1), 
+            new Moeda("Cinco Centavos", 5), 
+            new Moeda("Dez Centavos", 10), 
+            new Moeda("Vinte e Cinco Centavos", 25), 
+            new Moeda("Cinquenta centavos", 50), 
+            new Moeda("Um real", 100) };
     }
+//    
+//    public ArrayList<Moeda> EmiteTicket(TipoPagamento pagamento, ArrayList<Moeda> moedas)
+//    {
+//        int tempo = geraTempo(moedas);
+//        Ticket novoTicket = new Ticket(this, nroTicket, tempo, Calendar.getInstance());
+//        ArrayList<Moeda> troco = verificaTroco(novoTicket);
+//        if (troco == null) return null;
+//        nroTicket++;
+//        return troco;
+//    }
     
-    public ArrayList<Moeda> EmiteTicket(TipoPagamento pagamento, ArrayList<Moeda> moedas)
-    {
-        int tempo = geraTempo(moedas);
-        Ticket novoTicket = new Ticket(this, nroTicket, tempo, Calendar.getInstance());
-        ArrayList<Moeda> troco = verificaTroco(novoTicket);
-        if (troco == null) return null;
-        nroTicket++;
-        return troco;
-    }
-    
-    private int geraTempo(ArrayList<Moeda> pagamento)
-    {
-        int total = 0;
-        for (Moeda m : pagamento)
-        {
-            total = m.getValor();
-        }
-        return (total / tarifa) * incrementoDeTempo;
-    }
+//    private int geraTempo(ArrayList<Moeda> pagamento)
+//    {
+//        int total = 0;
+//        for (Moeda m : pagamento)
+//        {
+//            total = m.getValor();
+//        }
+//        return (total / tarifa) * incrementoDeTempo;
+//    }
     
     //Verifica o troco para moedas! Para outros tipos devemos retornar uma lista vazia sempre.
-    private ArrayList<Moeda> verificaTroco(Ticket umTicket) 
-    {
-        ArrayList<Moeda> troco = new ArrayList<Moeda>();
-        double totalAPagar = umTicket.getTotalAPagar();
-        int i = 0;
-        while (totalAPagar != 0)
-        {
-            int qtdMoedas = (int) (totalAPagar / moedas[i].getValor());
-            if (qtdMoedas > moedas[i].getQuantidade()) return null;
-            else if (qtdMoedas != 0)
-            {
-                Moeda atual = moedas[i];
-                troco.add(new Moeda(atual.getTipo(), atual.getValor(), qtdMoedas));
-                totalAPagar = totalAPagar % atual.getValor();
-            }
-            i++;
-        }
-        return troco;
-    }
+//    private ArrayList<Moeda> verificaTroco(Ticket umTicket) 
+//    {
+//        ArrayList<Moeda> troco = new ArrayList<Moeda>();
+//        double totalAPagar = umTicket.getTotalAPagar();
+//        int i = 0;
+//        while (totalAPagar != 0)
+//        {
+//            int qtdMoedas = (int) (totalAPagar / moedas[i].getValor());
+//            if (qtdMoedas > moedas[i].getQuantidade()) return null;
+//            else if (qtdMoedas != 0)
+//            {
+//                Moeda atual = moedas[i];
+//                troco.add(new Moeda(atual.getValor(), qtdMoedas));
+//                totalAPagar = totalAPagar % atual.getValor();
+//            }
+//            i++;
+//        }
+//        return troco;
+//    }
 }
