@@ -7,6 +7,9 @@ package apresentacao;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -14,8 +17,8 @@ import javax.swing.JPanel;
  * @author Bruno
  */
 public class View extends javax.swing.JFrame {
-
     private GeradorDeGrafico geradorDeGrafico;
+    
     
     /**
      * Creates new form NovaView
@@ -24,6 +27,64 @@ public class View extends javax.swing.JFrame {
         int[] serie = {1, 2, 3, 4};
         geradorDeGrafico = new GeradorDeGrafico(serie, 0, 3);
         initComponents();
+    }
+    
+    public void associaController(Controller c){
+        importarLogging.addActionListener(c); //TODO: Adicionar o listener pros outros botoes
+        inserirDados.addActionListener(c); 
+    }
+    
+    public JButton getImportarLogging()
+    {
+        return importarLogging;
+    }
+    
+    public void mostra()
+    {
+        setVisible(true);
+    }
+    
+    public void adicionaLog(String path)
+    {
+        console.setText(console.getText()
+        + "\n"
+        + "Adicionado arquivo: '"
+        + path
+        + "'");
+    }
+    
+    public void dadosImportados(int qtdArquivos)
+    {
+        console.setText(qtdArquivos + " arquivos importados."); 
+    }
+    
+    public void arquivoNaoEncontrado()
+    {
+        console.setText(console.getText()
+        + "\n"
+        + "Arquivo não encontrado"
+        );
+    }
+    
+    public void erroDeES()
+    {
+        console.setText(console.getText()
+        + "\n"
+        + "Erro de E/S"
+        );
+    }
+    
+    public void arquivoInvalido()
+    {
+        console.setText(console.getText()
+        + "\n"
+        + "Arquivo inválido"
+        );
+    }
+    
+    public JButton getInserirDados()
+    {
+        return inserirDados;
     }
 
     /**
@@ -39,7 +100,8 @@ public class View extends javax.swing.JFrame {
         importarInserir = new javax.swing.JPanel();
         importarLogging = new javax.swing.JButton();
         inserirDados = new javax.swing.JButton();
-        console = new javax.swing.JTextField();
+        console_panel = new javax.swing.JScrollPane();
+        console = new javax.swing.JTextPane();
         relatorios = new javax.swing.JPanel();
         data_label = new javax.swing.JLabel();
         data_formatada = new javax.swing.JFormattedTextField();
@@ -73,6 +135,7 @@ public class View extends javax.swing.JFrame {
         inserirDados.setText("Inserir dados importados");
 
         console.setEditable(false);
+        console_panel.setViewportView(console);
 
         javax.swing.GroupLayout importarInserirLayout = new javax.swing.GroupLayout(importarInserir);
         importarInserir.setLayout(importarInserirLayout);
@@ -81,7 +144,7 @@ public class View extends javax.swing.JFrame {
             .addGroup(importarInserirLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(importarInserirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(console)
+                    .addComponent(console_panel)
                     .addGroup(importarInserirLayout.createSequentialGroup()
                         .addComponent(importarLogging, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -96,8 +159,7 @@ public class View extends javax.swing.JFrame {
                     .addComponent(importarLogging)
                     .addComponent(inserirDados))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(console, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(console_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
         );
 
         moduloGerencial.addTab("Importar/Inserir", importarInserir);
@@ -342,7 +404,8 @@ public class View extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ano_label;
-    private javax.swing.JTextField console;
+    private javax.swing.JTextPane console;
+    private javax.swing.JScrollPane console_panel;
     private javax.swing.JLabel data_fim_label;
     private javax.swing.JFormattedTextField data_fim_text;
     private javax.swing.JFormattedTextField data_formatada;

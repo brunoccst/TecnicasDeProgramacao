@@ -47,4 +47,10 @@ public class Parquimetro implements IParquimetro
     public void addTicket(Ticket ticket) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public String toString()
+    {
+        return "[ ID: " + id + " | Endereço: " + endereco +" ]";
+    }
 }
