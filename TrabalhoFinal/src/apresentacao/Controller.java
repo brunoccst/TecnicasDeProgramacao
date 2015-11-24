@@ -1,6 +1,8 @@
 package apresentacao;
 
 import ModuloGerencial.IParquimetro;
+import ModuloGerencial.Parquimetro;
+import ModuloGerencial.ParquimetroFacade;
 import ModuloGerencial.Ticket;
 import ModuloGerencial.TicketFacade;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JFileChooser;
 import persistencia.ParquimetroDAO;
 import persistencia.TicketDAO;
@@ -36,6 +41,7 @@ public class Controller implements ActionListener {
     public void associaView(View v)
     {
         view = v;
+        view.setParquimetros(ParquimetroDAO.getParquimetro());
     }
     
     public void associaSeletorLog(Seletor_Log sel)
@@ -149,12 +155,55 @@ public class Controller implements ActionListener {
         }
         else if (e.getSource()== view.getGerarRelatorio())
         {
-            int parquimetroId = view.getParquimetroSelecionado();
-            IParquimetro parquimetro = ParquimetroDAO.getParquimetro(parquimetroId);
-            LocalDateTime data = view.getDataRelatorio();
-            ArrayList<Ticket> tickets = TicketDAO.getTickets(parquimetro, data, data.plusYears(1));
-            view.setRelatorio(tickets);
+            String data = view.getDataRelatorio();
+            LocalDateTime dataSelecionada = LocalDateTime.now();
+            if (!data.equals("")) 
+            {
+                String[] dt = data.split("/");
+                int dia = Integer.parseInt(dt[0]);
+                int mes = Integer.parseInt(dt[1]);
+                int ano = Integer.parseInt(dt[2]);
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                dataSelecionada = LocalDateTime.of(ano, Month.of(mes), dia, 0, 0);
+            }
             
+            int parquimetroId = view.getParquimetroSelecionado();
+            if (parquimetroId == 0)
+            {
+                //Gerar relatório com todos os dados do log dos parquímetros filtrados por dia específico ou mês;
+                ArrayList<Parquimetro> parq = ParquimetroFacade.getParquimetros();
+                ArrayList<Ticket> tickets = new ArrayList<>();
+                for (Parquimetro p : parq)
+                {
+                    ArrayList<Ticket> ticketsP = p.getTickets();
+                    for (Ticket t : ticketsP)
+                    {
+                        if ((t.getEmissao().getMonth().compareTo(dataSelecionada.getMonth()) == 0)
+                                && t.getEmissao().getDayOfMonth() == dataSelecionada.getDayOfMonth())
+                        {
+                            tickets.add(t);
+                        }
+                    }
+                }
+                
+            //Sorting
+            Collections.sort(tickets, new Comparator<Ticket>() {
+
+                    @Override
+                    public int compare(Ticket o1, Ticket o2) {
+                        return Math.min(o1.getParquimetro().getId(), o2.getParquimetro().getId());
+                    }
+
+            });
+            view.setRelatorioGeral(tickets);
+            }
+            else 
+            {
+                //Gerar relatório de total de valor arrecadado, total de valor isento, filtrados por número do parquímetro e
+                //agrupados por mês ou ano;
+                IParquimetro parquimetro = ParquimetroFacade.getParquimetro(parquimetroId);
+                
+            }
         }
     }
 }

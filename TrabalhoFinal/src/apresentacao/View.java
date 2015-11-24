@@ -6,6 +6,7 @@
 package apresentacao;
 
 import ModuloGerencial.IParquimetro;
+import ModuloGerencial.Parquimetro;
 import ModuloGerencial.Ticket;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,7 +25,6 @@ import javax.swing.JPanel;
  */
 public class View extends javax.swing.JFrame {
     private GeradorDeGrafico geradorDeGrafico;
-    
     /**
      * Creates new form NovaView
      */
@@ -34,15 +34,43 @@ public class View extends javax.swing.JFrame {
         initComponents();
     }
     
+        
     public void associaController(Controller c){
-        importarLogging.addActionListener(c); //TODO: Adicionar o listener pros outros botoes
+        importarLogging.addActionListener(c);
         inserirDados.addActionListener(c); 
         gerarRelatorio.addActionListener(c);
+    }
+    
+    public void setParquimetros(ArrayList<Parquimetro> parq)
+    {
+        parquimetro_selecionado.removeAllItems();
+        parquimetro_selecionado.addItem("Todos");
+        for (Parquimetro p : parq)
+        {
+            parquimetro_selecionado.addItem("" + p.getId());
+        }
     }
     
     public JButton getImportarLogging()
     {
         return importarLogging;
+    }
+    
+    public String getDataRelatorio()
+    {
+        return data_formatada.getText();
+    }
+    
+    public int getParquimetroSelecionado()
+    {
+        String selected = (String) parquimetro_selecionado.getSelectedItem();
+        if (selected.equals("Todos")) return 0;
+        return Integer.parseInt(selected);
+    }
+    
+    public JButton getGerarRelatorio()
+    {
+        return gerarRelatorio;
     }
     
     public void mostra()
@@ -88,11 +116,22 @@ public class View extends javax.swing.JFrame {
         );
     }
     
-    public void setRelatorio(ArrayList<Ticket> tickets)
+    public void setRelatorioGeral(ArrayList<Ticket> tickets)
     {
         StringBuilder sb = new StringBuilder();
+        LocalDateTime dataAtual = tickets.get(0).getEmissao();
+        sb.append("\n----------------\n");
+        sb.append(dataAtual.getDayOfMonth() + "/" + dataAtual.getMonth() + "/" + dataAtual.getYear() + "\n");
         for (Ticket t : tickets)
-            sb.append(t.getSerial() + " | " + t.getEmissao() + " - " + t.getValidade() + "\n");
+        {
+            if (t.getEmissao().isAfter(dataAtual)) 
+            {
+                dataAtual = t.getEmissao();
+                sb.append("\n----------------\n");
+                sb.append(dataAtual.getDayOfMonth() + "/" + dataAtual.getMonth() + "/" + dataAtual.getYear() + "\n");
+            }
+            sb.append("[" + t.getParquimetro() + "] | " + t.getSerial() + " | " + t.getEmissao() + " - " + t.getValidade() + "\n");
+        }
         relatorio.setText(sb.toString());
     }
     
@@ -101,25 +140,6 @@ public class View extends javax.swing.JFrame {
         return inserirDados;
     }
     
-    public LocalDateTime getDataRelatorio()
-    {
-       DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-       LocalDateTime dt = LocalDateTime.parse(data_formatada.getText().trim(), formato); // TODO: Fazer parse
-       return dt;
-       
-    }
-    
-    public JButton getGerarRelatorio()
-    {
-        return gerarRelatorio;
-    }
-    
-    public int getParquimetroSelecionado()
-    {
-        String s = parquimetro_selecionado.getSelectedItem().toString();
-        int value = (s.equals("Todos")) ? 0 : Integer.parseInt(s);
-        return value;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,7 +160,7 @@ public class View extends javax.swing.JFrame {
         data_label = new javax.swing.JLabel();
         data_formatada = new javax.swing.JFormattedTextField();
         seletor_parquimetro = new javax.swing.JLabel();
-        parquimetro_selecionado = new javax.swing.JComboBox<>();
+        parquimetro_selecionado = new javax.swing.JComboBox<String>();
         scroll_relatorios = new javax.swing.JScrollPane();
         relatorio = new javax.swing.JTextArea();
         gerarRelatorio = new javax.swing.JButton();
@@ -155,13 +175,13 @@ public class View extends javax.swing.JFrame {
         gerarGeral = new javax.swing.JButton();
         porParquimetro = new javax.swing.JPanel();
         parquimetro_grafico = new javax.swing.JLabel();
-        seletor_parquimetro_grafico = new javax.swing.JComboBox<>();
+        seletor_parquimetro_grafico = new javax.swing.JComboBox<String>();
         endereco_label = new javax.swing.JLabel();
-        endereco_grafico_text = new javax.swing.JTextField();
+        endereco_texto = new javax.swing.JTextField();
         scroll_parquimetro = new javax.swing.JScrollPane();
         grafico_parquimetro = new javax.swing.JTextArea();
         ano_label = new javax.swing.JLabel();
-        ano_grafico_text = new javax.swing.JFormattedTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,7 +225,7 @@ public class View extends javax.swing.JFrame {
 
         seletor_parquimetro.setText("Parquímetro");
 
-        parquimetro_selecionado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "1", "2", "3" }));
+        parquimetro_selecionado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         relatorio.setEditable(false);
         relatorio.setColumns(20);
@@ -308,11 +328,11 @@ public class View extends javax.swing.JFrame {
 
         parquimetro_grafico.setText("Parquímetro");
 
-        seletor_parquimetro_grafico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        seletor_parquimetro_grafico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         endereco_label.setText("Endereço");
 
-        endereco_grafico_text.setEditable(false);
+        endereco_texto.setEditable(false);
 
         grafico_parquimetro.setEditable(false);
         grafico_parquimetro.setColumns(20);
@@ -321,7 +341,7 @@ public class View extends javax.swing.JFrame {
 
         ano_label.setText("Ano");
 
-        ano_grafico_text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
 
         javax.swing.GroupLayout porParquimetroLayout = new javax.swing.GroupLayout(porParquimetro);
         porParquimetro.setLayout(porParquimetroLayout);
@@ -337,13 +357,13 @@ public class View extends javax.swing.JFrame {
                             .addComponent(endereco_label))
                         .addGap(18, 18, 18)
                         .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(endereco_grafico_text)
+                            .addComponent(endereco_texto)
                             .addGroup(porParquimetroLayout.createSequentialGroup()
                                 .addComponent(seletor_parquimetro_grafico, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(ano_label)
                                 .addGap(18, 18, 18)
-                                .addComponent(ano_grafico_text, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 198, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -355,11 +375,11 @@ public class View extends javax.swing.JFrame {
                     .addComponent(parquimetro_grafico)
                     .addComponent(seletor_parquimetro_grafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ano_label)
-                    .addComponent(ano_grafico_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(endereco_label)
-                    .addComponent(endereco_grafico_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(endereco_texto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scroll_parquimetro, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
         );
@@ -443,7 +463,6 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField ano_grafico_text;
     private javax.swing.JLabel ano_label;
     private javax.swing.JTextPane console;
     private javax.swing.JScrollPane console_panel;
@@ -453,8 +472,8 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel data_inicio_label;
     private javax.swing.JFormattedTextField data_inicio_text;
     private javax.swing.JLabel data_label;
-    private javax.swing.JTextField endereco_grafico_text;
     private javax.swing.JLabel endereco_label;
+    private javax.swing.JTextField endereco_texto;
     private javax.swing.JPanel geral;
     private javax.swing.JButton gerarGeral;
     private javax.swing.JButton gerarRelatorio;
@@ -463,6 +482,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JPanel importarInserir;
     private javax.swing.JButton importarLogging;
     private javax.swing.JButton inserirDados;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JTabbedPane moduloGerencial;
     private java.awt.Panel painel_grafico;
     private javax.swing.JLabel parquimetro_grafico;
