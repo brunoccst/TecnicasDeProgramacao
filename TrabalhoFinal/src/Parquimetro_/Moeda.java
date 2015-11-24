@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ModuloGerencial;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+package Parquimetro_;
 
 /**
  *
  * @author feliperiffel
  */
-public interface IParquimetro {
-    int getId();
-    String getEndereco();
-    ArrayList getTickets();
+public enum Moeda {
+    Moeda5, Moeda10, Moeda25, Moeda50, Moeda100;
 }

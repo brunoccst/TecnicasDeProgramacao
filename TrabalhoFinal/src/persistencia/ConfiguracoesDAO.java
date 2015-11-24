@@ -20,7 +20,7 @@ import java.time.Month;
 public class ConfiguracoesDAO {
     
     public static Configuracoes getConfiguracoes(){
-        return new Configuracoes(LocalTime.of(7, 30), LocalTime.of(8, 30), 30, 120, 10, 0.25, true, true, true, true, true, true, true);
+        return new Configuracoes(LocalTime.of(7, 30), LocalTime.of(8, 30), 0.75, 30, 120, 10, 0.25, true, true, true, true, true, true, true);
     }
  
     public static void setConfiguracoes(Configuracoes conf){

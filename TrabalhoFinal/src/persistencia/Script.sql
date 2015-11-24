@@ -49,8 +49,8 @@ create table Configuracoes
     cartao_residente smallint
 );
 
-insert into parquimetros(ENDERECO) values('Av. Bento GonÃ§alves, 1990');
-insert into parquimetros(ENDERECO) values('Av. Bento GonÃ§alves, 2000');
+insert into parquimetros(ENDERECO) values('Av. Bento Gonçalves, 1990');
+insert into parquimetros(ENDERECO) values('Av. Bento Gonçalves, 2000');
 insert into parquimetros(ENDERECO) values('Av. Ipiranga, 800');
 insert into parquimetros(ENDERECO) values('Av. Ipiranga, 1600');
 insert into parquimetros(ENDERECO) values('Av. Ipiranga, 670');
