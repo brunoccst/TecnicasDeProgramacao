@@ -18,6 +18,11 @@ public class Ticket {
     private LocalDateTime emissao;
     private LocalDateTime validade;
     private ICartao cartao;
+
+    public Ticket(IParquimetro parquimetro, int serial, LocalDateTime emissao, LocalDateTime validade)
+    {
+        this(parquimetro, serial, emissao, validade, null);
+    }
     
     public Ticket(IParquimetro parquimetro, int serial, LocalDateTime emissao, LocalDateTime validade, ICartao cartao){
         this.parquimetro = parquimetro;

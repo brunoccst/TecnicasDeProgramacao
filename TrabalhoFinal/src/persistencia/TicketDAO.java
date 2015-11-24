@@ -10,10 +10,11 @@ import ModuloGerencial.IParquimetro;
 import ModuloGerencial.Cartao;
 import ModuloGerencial.ICartao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -33,10 +34,10 @@ public class TicketDAO {
             try (PreparedStatement comando = conexao.prepareStatement(sql)) {
                 comando.setInt(1, prquimetroID);
                 comando.setInt(2, serial);
-                comando.setString(3, emissao.getYear() + "-" + emissao.getMonthValue() + "-" + emissao.getDayOfMonth());
-                comando.setString(4, emissao.getHour() + ":" + emissao.getMinute() + ":" + emissao.getSecond());
-                comando.setString(5, validade.getYear() + "-" + validade.getMonthValue() + "-" + validade.getDayOfMonth());
-                comando.setString(6, validade.getHour() + ":" + validade.getMinute() + ":" + validade.getSecond());
+                comando.setDate(3, Date.valueOf(emissao.toLocalDate()));
+                comando.setTime(4, Time.valueOf(emissao.toLocalTime()));
+                comando.setDate(5, Date.valueOf(validade.toLocalDate()));
+                comando.setTime(6, Time.valueOf(validade.toLocalTime()));
                 if (cartaoID != null) comando.setString(7, cartaoID);
                 if (comando.executeUpdate() > 0) {
                     System.out.println("Inserção efetuada com sucesso");
@@ -55,27 +56,26 @@ public class TicketDAO {
             String sql = "select * from Tickets where parquimetro_id = ?";
             
             if (doDia != null && ateDia == null)
-                sql = sql + " and data_emissao = DATE(?) ";
+                sql = sql + " and data_emissao = ? ";
             else if(doDia != null && ateDia != null)
-                sql = sql + " and data_emissao between DATE(?) and DATE(?) and hora_emissao between TIME(?) and TIME(?)";
+                sql = sql + " and data_emissao between ? and ? and hora_emissao between ? and ?";
             
             try (PreparedStatement comando = conexao.prepareStatement(sql)) {
                 comando.setInt(1, parquimetro.getId());
                 
                 if (doDia != null && ateDia == null)
-                    comando.setString(2, doDia.getYear() + "-" + doDia.getMonthValue() + "-" + doDia.getDayOfMonth());
+                    comando.setDate(2, Date.valueOf(doDia.toLocalDate()));
                 else if(doDia != null && ateDia != null){
-                    comando.setString(2, doDia.getYear() + "-" + doDia.getMonthValue() + "-" + doDia.getDayOfMonth());
-                    comando.setString(3, ateDia.getYear() + "-" + ateDia.getMonthValue() + "-" + ateDia.getDayOfMonth());
-                    comando.setString(4, doDia.getHour() + ":" + doDia.getMinute() + ":" + doDia.getSecond());
-                    comando.setString(5, ateDia.getHour() + ":" + ateDia.getMinute() + ":" + ateDia.getSecond());
+                    comando.setDate(2, Date.valueOf(doDia.toLocalDate()));
+                    comando.setDate(3, Date.valueOf(ateDia.toLocalDate()));
+                    comando.setTime(4, Time.valueOf(doDia.toLocalTime()));
+                    comando.setTime(5, Time.valueOf(ateDia.toLocalTime()));
                 }
                 
                 try (ResultSet resultados = comando.executeQuery()) {
                     tickets = new ArrayList();
                     while (resultados.next()) {
-                        tickets.add(new Ticket(parquimetro, resultados.getInt("serial"), LocalDateTime.now(), LocalDateTime.now(), (ICartao)CartaoDAO.getCartao(resultados.getString("cartao_id"))));
-                        //NAO SEI PEGAR A MERDA DA DATA E HORA DEVOLTA.
+                        tickets.add(new Ticket(parquimetro, resultados.getInt("serial"), LocalDateTime.of(resultados.getDate("data_emissao").toLocalDate(), resultados.getTime("hora_emissao").toLocalTime()), LocalDateTime.of(resultados.getDate("data_validade").toLocalDate(), resultados.getTime("hora_validade").toLocalTime()), (ICartao)CartaoDAO.getCartao(resultados.getString("cartao_id"))));
                     }
                 }
             }

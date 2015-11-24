@@ -28,8 +28,8 @@ public class ParquimetroDAO {
                     
                     //Pega o ID do novo registro
                     String sql2 = "select * from Parquimetros order by 1 desc fetch first row only";
-                    try (PreparedStatement comando2 = conexao.prepareStatement(sql)) {
-                        try (ResultSet resultados = comando.executeQuery()) {
+                    try (PreparedStatement comando2 = conexao.prepareStatement(sql2)) {
+                        try (ResultSet resultados = comando2.executeQuery()) {
                             while (resultados.next()) {
                                 novoParquimetro = new Parquimetro(resultados.getInt("id"), resultados.getString("endereco"));
                             }
