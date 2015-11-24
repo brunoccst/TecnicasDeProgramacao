@@ -3,7 +3,6 @@ package ModuloGerencial;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import persistencia.TicketDAO;
 
 public class Parquimetro implements IParquimetro
 {
@@ -30,22 +29,22 @@ public class Parquimetro implements IParquimetro
 
     @Override
     public ArrayList getTickets() {
-        return TicketDAO.getTickets(this, null, null);
+        return TicketFacade.getTickets(this, null, null);
     }
 
     @Override
     public ArrayList getTikets(LocalDateTime doDia) {
-        return TicketDAO.getTickets(this, doDia, null);
+        return TicketFacade.getTickets(this, doDia, null);
     }
 
     @Override
     public ArrayList getTickets(LocalDateTime doDia, LocalDateTime ateDia) {
-        return TicketDAO.getTickets(this, doDia, ateDia);
+        return TicketFacade.getTickets(this, doDia, ateDia);
     }
 
     @Override
     public void addTicket(Ticket ticket) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TicketFacade.addTicket(ticket);
     }
     
     @Override

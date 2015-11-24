@@ -36,10 +36,6 @@ public class Configuracoes {
         this.cartaoRecarregavel = cartaoRecarregavel;
         this.cartaoResidente = cartaoResidente;
     }
-
-    public Configuracoes(LocalTime of, LocalTime of0, int i, int i0, int i1, int i2, int i3, boolean b, boolean b0, boolean b1, boolean b2, boolean b3, boolean b4, boolean b5) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     public LocalTime getInicioTarifacao(){
         return inicioTarifacao;

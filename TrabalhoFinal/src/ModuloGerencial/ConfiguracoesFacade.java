@@ -10,7 +10,7 @@ import persistencia.ConfiguracoesDAO;
  *
  * @author feliperiffel
  */
-public class ConfiguracoesFactory {
+public class ConfiguracoesFacade {
     public static Configuracoes getConfiguracoes(){
         return ConfiguracoesDAO.getConfiguracoes();
     }

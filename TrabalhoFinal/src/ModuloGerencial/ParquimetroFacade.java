@@ -4,17 +4,24 @@
  * and open the template in the editor.
  */
 package ModuloGerencial;
+import java.util.ArrayList;
 import persistencia.ParquimetroDAO;
 
 /**
  *
  * @author feliperiffel
  */
-public class ParquimetroFactory {
+public class ParquimetroFacade {
     public static Parquimetro criaParquimetro(String endereco){
         return ParquimetroDAO.creteNewParquimetro(endereco);
     }
     public static void updateParquimetro(Parquimetro parquimetro){
         
+    }
+    public static Parquimetro getParquimetro(int id){
+        return ParquimetroDAO.getParquimetro(id);
+    }
+    public static ArrayList<Parquimetro> getParquimetros(){
+        return ParquimetroDAO.getParquimetro();
     }
 }

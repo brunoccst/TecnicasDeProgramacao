@@ -9,6 +9,7 @@ import ModuloGerencial.Parquimetro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -46,13 +47,13 @@ public class ParquimetroDAO {
         return novoParquimetro;
     }
     
-    public static Parquimetro getParquimetro(String id){
+    public static Parquimetro getParquimetro(int id){
         Parquimetro parquimetro = null;
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
             //Consultar dados da tabela
             String sql = "select * from Parquimetros where id = ?";
             try (PreparedStatement comando = conexao.prepareStatement(sql)) {
-                comando.setString(1, id);
+                comando.setInt(1, id);
                 try (ResultSet resultados = comando.executeQuery()) {
                     while (resultados.next()) {
                         parquimetro = new Parquimetro(resultados.getInt("id"), resultados.getString("endereco"));
@@ -63,5 +64,23 @@ public class ParquimetroDAO {
             ex.printStackTrace();
         }
         return parquimetro;
+    }
+    
+    public static ArrayList<Parquimetro> getParquimetro(){
+        ArrayList<Parquimetro> parquimetros = new ArrayList();
+        try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
+            //Consultar dados da tabela
+            String sql = "select * from Parquimetros";
+            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                try (ResultSet resultados = comando.executeQuery()) {
+                    while (resultados.next()) {
+                        parquimetros.add(new Parquimetro(resultados.getInt("id"), resultados.getString("endereco")));
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return parquimetros;
     }
 }
