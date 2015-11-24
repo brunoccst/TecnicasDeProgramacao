@@ -1,7 +1,8 @@
 package apresentacao;
 
 import ModuloGerencial.IParquimetro;
-import ModuloGerencial.Parquimetro;
+import ModuloGerencial.Ticket;
+import ModuloGerencial.TicketFacade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -9,11 +10,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import persistencia.ParquimetroDAO;
+import persistencia.TicketDAO;
 
 /**
  *
@@ -52,21 +54,46 @@ public class Controller implements ActionListener {
         BufferedReader br = new BufferedReader(new FileReader(log.getPath()));
         try {
             String line = br.readLine();
-            while (!line.contains("<id>")) line = br.readLine();
-            String aux = line.substring(line.indexOf('>') + 1, line.lastIndexOf('<'));
-            int id = Integer.parseInt(aux);
-            
-            while (!line.contains("<endereco>")) line = br.readLine();
-            aux = line.substring(line.indexOf('>') + 1, line.lastIndexOf('<'));
-            String endereco = aux;
-            
-            IParquimetro parquimetro = new Parquimetro(id, endereco);
-            System.out.println(parquimetro.toString());
-            
-        } finally {
+            int id = Integer.parseInt(line);
+            IParquimetro parquimetro = ParquimetroDAO.getParquimetro(id);
+            line = br.readLine();
+            while (line.equals(";"))
+            {
+                  line = br.readLine();
+                  if (line == ";" || line == null) break;
+                  int serial = Integer.parseInt(line);
+
+                  DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+                  line = br.readLine();
+                  String dataEmissao = line;
+                  line = br.readLine();
+                  dataEmissao += " " + line;
+                  LocalDateTime emissao = LocalDateTime.parse(dataEmissao, formato);
+                  
+                  line = br.readLine();
+                  String dataValidade = line;
+                  line = br.readLine();
+                  dataValidade += " " + line;
+                  LocalDateTime validade = LocalDateTime.parse(dataValidade, formato);
+                                    
+                  line = br.readLine();
+                  if (!line.equals(";")) 
+                  {
+                    TicketDAO.creteNewTicket(id, serial, emissao, validade, line);
+                    line = br.readLine();
+                  }
+                  else
+                  {
+                    TicketDAO.creteNewTicket(id, serial, emissao, validade, null);
+                  }
+            }
+            view.dadosImportados(logs.size());
+        }
+        finally 
+        {
             br.close();
         }
-        view.dadosImportados(logs.size());
     }
     
     public void manageAddLog(ActionEvent e)
@@ -119,6 +146,15 @@ public class Controller implements ActionListener {
         else if (e.getSource()== view.getInserirDados())
         {
             manageImportaDados(e);
+        }
+        else if (e.getSource()== view.getGerarRelatorio())
+        {
+            int parquimetroId = view.getParquimetroSelecionado();
+            IParquimetro parquimetro = ParquimetroDAO.getParquimetro(parquimetroId);
+            LocalDateTime data = view.getDataRelatorio();
+            ArrayList<Ticket> tickets = TicketDAO.getTickets(parquimetro, data, data.plusYears(1));
+            view.setRelatorio(tickets);
+            
         }
     }
 }
