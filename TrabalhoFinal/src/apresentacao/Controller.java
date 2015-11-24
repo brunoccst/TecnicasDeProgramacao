@@ -175,7 +175,7 @@ public class Controller implements ActionListener {
                 ArrayList<Ticket> tickets = new ArrayList<>();
                 for (Parquimetro p : parq)
                 {
-                    ArrayList<Ticket> ticketsP = p.getTickets();
+                    ArrayList<Ticket> ticketsP = TicketFacade.getTickets(p, null, null);
                     for (Ticket t : ticketsP)
                     {
                         if ((t.getEmissao().getMonth().compareTo(dataSelecionada.getMonth()) == 0)
@@ -202,6 +202,7 @@ public class Controller implements ActionListener {
                 //Gerar relatório de total de valor arrecadado, total de valor isento, filtrados por número do parquímetro e
                 //agrupados por mês ou ano;
                 IParquimetro parquimetro = ParquimetroFacade.getParquimetro(parquimetroId);
+                
                 
             }
         }

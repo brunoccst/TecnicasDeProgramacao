@@ -120,17 +120,19 @@ public class View extends javax.swing.JFrame {
     {
         StringBuilder sb = new StringBuilder();
         LocalDateTime dataAtual = tickets.get(0).getEmissao();
-        sb.append("\n----------------\n");
+        int parquimetroAtual = tickets.get(0).getParquimetro().getId();
+        
         sb.append(dataAtual.getDayOfMonth() + "/" + dataAtual.getMonth() + "/" + dataAtual.getYear() + "\n");
+        sb.append("[" + parquimetroAtual + "]\n\n");
+        
         for (Ticket t : tickets)
         {
-            if (t.getEmissao().isAfter(dataAtual)) 
+            if (t.getParquimetro().getId() > parquimetroAtual) 
             {
-                dataAtual = t.getEmissao();
-                sb.append("\n----------------\n");
-                sb.append(dataAtual.getDayOfMonth() + "/" + dataAtual.getMonth() + "/" + dataAtual.getYear() + "\n");
+                parquimetroAtual = t.getParquimetro().getId();
+                sb.append("\n[" + parquimetroAtual + "]\n");
             }
-            sb.append("[" + t.getParquimetro() + "] | " + t.getSerial() + " | " + t.getEmissao() + " - " + t.getValidade() + "\n");
+            sb.append(t.getSerial() + " || " + t.getEmissao() + " - " + t.getValidade() + "\n");
         }
         relatorio.setText(sb.toString());
     }

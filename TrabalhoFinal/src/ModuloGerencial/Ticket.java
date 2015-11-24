@@ -5,6 +5,7 @@
  */
 package ModuloGerencial;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 
@@ -50,5 +51,23 @@ public class Ticket {
     
     public ICartao getCartao(){
         return cartao;
+    }
+    
+    public double getValor()
+    {
+        Configuracoes conf = ConfiguracoesFacade.getConfiguracoes();
+        Duration dif = Duration.between(validade, emissao);
+        int minutes = (int) (dif.getSeconds() / 60);
+        double valor = conf.getValorInicial();
+        minutes -= conf.getValorInicial();
+        
+        while(minutes > 0){
+            minutes -= conf.getIncremento();
+            valor += conf.getTarifaIncremento();
+        }
+        
+        return valor;
+        
+        
     }
 }
