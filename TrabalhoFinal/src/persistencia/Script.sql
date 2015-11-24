@@ -48,3 +48,4 @@ create table Configuracoes
     cartao_recarregavel smallint,
     cartao_residente smallint
 );
+

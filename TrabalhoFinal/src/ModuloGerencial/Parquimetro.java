@@ -47,6 +47,10 @@ public class Parquimetro implements IParquimetro
         TicketFacade.addTicket(ticket);
     }
     
+    public int getLastSerial(){
+        return TicketFacade.getlastSerial(this);
+    }
+    
     @Override
     public String toString()
     {

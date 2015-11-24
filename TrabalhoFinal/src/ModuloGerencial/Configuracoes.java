@@ -14,6 +14,7 @@ import java.time.LocalTime;
 public class Configuracoes {
     private LocalTime inicioTarifacao;
     private LocalTime fimTarifacao;
+    private double valorInicial;
     private int tempoMinimo;
     private int tempoMaximo;
     private int incremento;
@@ -21,9 +22,10 @@ public class Configuracoes {
     private boolean moeda5, moeda10, moeda25, moeda50, moeda100;
     private boolean cartaoRecarregavel, cartaoResidente;
     
-    public Configuracoes(LocalTime inicioTarifacao, LocalTime fimTarifacao, int tempoMinimo, int tempoMaximo, int incremento, double tarifaIncremento, boolean moeda5, boolean moeda10, boolean moeda25, boolean moeda50, boolean moeda100, boolean cartaoRecarregavel, boolean cartaoResidente){
+    public Configuracoes(LocalTime inicioTarifacao, LocalTime fimTarifacao, double valorInicial, int tempoMinimo, int tempoMaximo, int incremento, double tarifaIncremento, boolean moeda5, boolean moeda10, boolean moeda25, boolean moeda50, boolean moeda100, boolean cartaoRecarregavel, boolean cartaoResidente){
         this.inicioTarifacao = inicioTarifacao;
         this.fimTarifacao = fimTarifacao;
+        this.valorInicial = valorInicial;
         this.tempoMinimo = tempoMinimo;
         this.tempoMaximo = tempoMaximo;
         this.incremento = incremento;
@@ -43,6 +45,10 @@ public class Configuracoes {
     
     public LocalTime getFimTarifacao(){
         return fimTarifacao;
+    }
+    
+    public double getValorInicial(){
+        return valorInicial;
     }
     
     public int getTempoMinimo(){
@@ -95,6 +101,10 @@ public class Configuracoes {
     
     public void setFimTarifacao(LocalTime novoFimTarifacao){
         fimTarifacao = novoFimTarifacao;
+    }
+    
+    public void setValorInicial(double novoValorInicial){
+        valorInicial = novoValorInicial;
     }
     
     public void setTempoMinimo(int novoTempoMinimo){

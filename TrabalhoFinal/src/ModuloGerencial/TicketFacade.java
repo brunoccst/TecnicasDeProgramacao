@@ -20,4 +20,7 @@ public class TicketFacade {
     public static void addTicket(Ticket ticket){
         TicketDAO.creteNewTicket(ticket.getParquimetro().getId(), ticket.getSerial(), ticket.getEmissao(), ticket.getValidade(), ticket.getCartao() != null ? ticket.getCartao().getID() : null);
     }
+    public static int getlastSerial(Parquimetro parquimetro){
+        return TicketDAO.lastSerial(parquimetro);
+    }
 }

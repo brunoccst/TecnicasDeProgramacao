@@ -50,6 +50,25 @@ public class TicketDAO {
         }
     }
     
+    public static int lastSerial(IParquimetro parquimetro){
+        int serialTicket = 0;
+        try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {            
+            String sql = "select * from Tickets where parquimetro_id = ? order by 1 desc fetch first row only";
+            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                comando.setInt(1, parquimetro.getId());
+                try (ResultSet resultados = comando.executeQuery()) {
+                    while (resultados.next()) {
+                        serialTicket = resultados.getInt("serial");
+                    }
+                }
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return serialTicket;
+    }
+    
     public static ArrayList<Ticket> getTickets(IParquimetro parquimetro, LocalDateTime doDia, LocalDateTime ateDia){
         ArrayList tickets = null;
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {            
