@@ -33,7 +33,7 @@ public class Parquimetro implements IParquimetro
     }
 
     @Override
-    public ArrayList getTickets() {
+    public ArrayList<Ticket> getTickets() {
         return tickets;
     }
     

@@ -137,6 +137,16 @@ public class View extends javax.swing.JFrame {
         relatorio.setText(sb.toString());
     }
     
+    public void setRelatorioValores(ArrayList<Double> mes, Parquimetro p){
+        String[] mstr = {"JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"};
+        StringBuilder sb = new StringBuilder();
+        sb.append("Parquimetro " + p.getId() + "\n");
+        for(int i = 0; i < 12; i++){
+            sb.append("Mes: " + mstr[i] + " Valor: " + mes.get(i) + "\n");
+        }
+        relatorio.setText(sb.toString());
+    }
+    
     public JButton getInserirDados()
     {
         return inserirDados;

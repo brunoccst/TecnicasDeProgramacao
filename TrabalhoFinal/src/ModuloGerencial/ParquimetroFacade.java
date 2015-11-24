@@ -21,9 +21,15 @@ public class ParquimetroFacade {
         
     }
     public static Parquimetro getParquimetro(int id){
-        return ParquimetroDAO.getParquimetro(id);
+        Parquimetro p = ParquimetroDAO.getParquimetro(id);
+        p.addTickets(TicketFacade.getTickets(p, null, null));
+        return p;
     }
     public static ArrayList<Parquimetro> getParquimetros(){
-        return ParquimetroDAO.getParquimetro();
+        ArrayList<Parquimetro> ps = ParquimetroDAO.getParquimetro();
+        for(Parquimetro p : ps){
+            p.addTickets(TicketFacade.getTickets(p, null, null));
+        }
+        return ps;
     }
 }
