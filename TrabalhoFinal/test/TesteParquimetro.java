@@ -3,7 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Parquimetro_;
+
+import Parquimetro_.Moeda;
+import org.junit.Assert;
+import org.junit.Test;
+import Parquimetro_.OParquimetro;
+
 
 /**
  *
@@ -11,14 +16,14 @@ package Parquimetro_;
  */
 public class TesteParquimetro {
     
+    @Test
     public void testaCompraCerta(){
         OParquimetro p = new OParquimetro(1);
         
         p.novoTicket();
         p.addMoeda(Moeda.Moeda50);
         p.addMoeda(Moeda.Moeda25);
-       // if (p.compraTicket() == 0) return true;
-       // return false;
+        Assert.assertEquals(p.compraTicket(), 0);
     }
     
     public void testaValorErrado(){
@@ -26,15 +31,14 @@ public class TesteParquimetro {
         
         p.novoTicket();
         p.addMoeda(Moeda.Moeda5);
-        //if(p.compraTicket() == 1)return true;
-        //return false;
+        Assert.assertEquals(p.compraTicket(), 1);
     }
     
     public boolean testaCartaoResidente(){
         OParquimetro p = new OParquimetro(1);
         
         p.novoTicket();
-        //if (p.compraTicket("") == 0) return true;
+        Assert.assertEquals(p.compraTicket(""), 0);
         return false;
     }
 }

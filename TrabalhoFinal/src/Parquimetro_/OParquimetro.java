@@ -32,9 +32,9 @@ public class OParquimetro {
     private int _moeda5 = 0, _moeda10 = 0, _moeda25 = 0, _moeda50 = 0, _moeda100 = 0;
     private int validade;
     
-    public OParquimetro (int code){
-        parquimetro = ParquimetroFacade.getParquimetro(code);
-        serialTicket = parquimetro.getLastSerial() + 1;
+    public OParquimetro (Parquimetro p){
+        parquimetro = p;
+        serialTicket = 0;
         config = ConfiguracoesFacade.getConfiguracoes();
         tickets = new ArrayList();
     }

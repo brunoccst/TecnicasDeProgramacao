@@ -4,16 +4,18 @@
  * and open the template in the editor.
  */
 package ModuloGerencial;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import persistencia.ParquimetroDAO;
-
 /**
  *
  * @author feliperiffel
  */
 public class ParquimetroFacade {
     public static Parquimetro criaParquimetro(String endereco){
-        return ParquimetroDAO.creteNewParquimetro(endereco);
+        Parquimetro p = ParquimetroDAO.creteNewParquimetro(endereco);
+        p.addTickets(TicketFacade.getTickets(p, null, null));
+        return p;
     }
     public static void updateParquimetro(Parquimetro parquimetro){
         

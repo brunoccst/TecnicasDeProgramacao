@@ -16,7 +16,4 @@ public interface IParquimetro {
     int getId();
     String getEndereco();
     ArrayList getTickets();
-    ArrayList getTikets(LocalDateTime doDia);
-    ArrayList getTickets(LocalDateTime doDia, LocalDateTime ateDia);
-    void addTicket(Ticket ticket);
 }
