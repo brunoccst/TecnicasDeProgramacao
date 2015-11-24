@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.sql.DataSource;
 
 /**
@@ -61,5 +62,23 @@ public class CartaoDAO {
             ex.printStackTrace();
         }
         return cartao;
+    }
+    
+    public static ArrayList<Cartao> getCartao(){
+        ArrayList<Cartao> cartoes = new ArrayList();
+        try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
+            //Consultar dados da tabela
+            String sql = "select * from CartoesRecarregaveis";
+            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                try (ResultSet resultados = comando.executeQuery()) {
+                    while (resultados.next()) {
+                        cartoes.add(new Cartao(resultados.getString("id"), resultados.getDouble("saldo"), resultados.getInt("residente") == 1 ? true : false));
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return cartoes;
     }
 }

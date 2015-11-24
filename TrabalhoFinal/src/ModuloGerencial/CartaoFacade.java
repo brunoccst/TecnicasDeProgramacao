@@ -5,17 +5,24 @@
  */
 package ModuloGerencial;
 
+import java.util.ArrayList;
 import persistencia.CartaoDAO;
 
 /**
  *
  * @author feliperiffel
  */
-public class CartaoFactory {
+public class CartaoFacade {
     public static Cartao createCartao(boolean residente){
         return CartaoDAO.creteNewCartao(residente);
     }
     public static void updateCartao(Cartao cartao){
         
+    }
+    public static Cartao getCartao(String id){
+        return CartaoDAO.getCartao(id);
+    }
+    public ArrayList<Cartao> getCartao(){
+        return CartaoDAO.getCartao();
     }
 }
