@@ -1,6 +1,5 @@
 package apresentacao.graficos;
 
-import apresentacao.graficos.IGrafico;
 import negocio.entidades.Parquimetro;
 import java.util.ArrayList;
 import javax.swing.JPanel;

@@ -337,16 +337,16 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lbl_dataInicio" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbl_mesAnoIncio" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="box_dataInicio" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <Component id="box_mesAnoInicio" min="-2" pref="70" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="lbl_fim" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbl_mesAnoFim" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="box_dataFim" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <Component id="box_mesAnoFim" min="-2" pref="70" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btn_gerarPizza" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="176" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="134" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="panel_pizza" alignment="1" max="32767" attributes="0"/>
                               </Group>
@@ -359,10 +359,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="box_dataInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_dataInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_fim" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="box_dataFim" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="box_mesAnoInicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_mesAnoIncio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_mesAnoFim" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="box_mesAnoFim" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btn_gerarPizza" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -372,27 +372,27 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="lbl_dataInicio">
+                    <Component class="javax.swing.JLabel" name="lbl_mesAnoIncio">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Data inicio"/>
+                        <Property name="text" type="java.lang.String" value="M&#xea;s/Ano Inicio"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="box_dataInicio">
+                    <Component class="javax.swing.JFormattedTextField" name="box_mesAnoInicio">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
+                          <Format format="MM/yyyy" subtype="-1" type="1"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lbl_fim">
+                    <Component class="javax.swing.JLabel" name="lbl_mesAnoFim">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Data fim"/>
+                        <Property name="text" type="java.lang.String" value="M&#xea;s/Ano Fim"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="box_dataFim">
+                    <Component class="javax.swing.JFormattedTextField" name="box_mesAnoFim">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
+                          <Format format="MM/yyyy" subtype="-1" type="1"/>
                         </Property>
                       </Properties>
                     </Component>

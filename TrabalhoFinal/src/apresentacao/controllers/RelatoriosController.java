@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import negocio.FormatadorDeData;
 import negocio.entidades.Parquimetro;
 import negocio.entidades.Ticket;
 import negocio.facades.ParquimetroFacade;
@@ -43,17 +44,7 @@ public class RelatoriosController implements ActionListener {
         }
         if (e.getSource() == viewPrincipal.getGerarRelatorio())
         {
-            String data = viewPrincipal.getDataRelatorio();
-            LocalDateTime dataSelecionada = LocalDateTime.now();
-            if (!data.equals("")) 
-            {
-                String[] dt = data.split("/");
-                int dia = Integer.parseInt(dt[0]);
-                int mes = Integer.parseInt(dt[1]);
-                int ano = Integer.parseInt(dt[2]);
-                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                dataSelecionada = LocalDateTime.of(ano, Month.of(mes), dia, 0, 0);
-            }
+            LocalDateTime dataSelecionada = FormatadorDeData.FormataDataDiaMesAno(viewPrincipal.getDataRelatorio());
             
             int parquimetroId = viewPrincipal.getParquimetroSelecionado();
             if (parquimetroId == 0)

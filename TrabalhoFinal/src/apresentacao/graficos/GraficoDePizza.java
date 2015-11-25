@@ -1,14 +1,13 @@
 package apresentacao.graficos;
 
-import apresentacao.graficos.IGrafico;
 import negocio.entidades.Parquimetro;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.general.DefaultPieDataset;
 
 
@@ -20,19 +19,18 @@ public class GraficoDePizza implements IGrafico {
    private ArrayList<Parquimetro> parquimetros;
    private DefaultPieDataset dataset;
    private JFreeChart grafico;
-   private String titulo, yAxis, xAxis;
+   private String titulo;
    
    public GraficoDePizza() {
-     this("Grafico de Barras", "X", "Y");
+     this("Grafico de Pizza");
    }
    
-   public GraficoDePizza(String umTitulo, String umXAxis, String umYAxis) {
+   public GraficoDePizza(String umTitulo) {
      this.titulo = umTitulo;
-     this.xAxis = umXAxis;
-     this.yAxis = umYAxis;
      this.parquimetros = new ArrayList();
      this.dataset = new DefaultPieDataset();
-     this.grafico = ChartFactory.createPieChart(titulo, dataset, false, false, null);
+     Locale locale = Locale.US;
+     this.grafico = ChartFactory.createPieChart(titulo, dataset, false, false, locale);
    }
    
    @Override
@@ -48,16 +46,6 @@ public class GraficoDePizza implements IGrafico {
     @Override
     public void setTitulo(String umTitulo) {
         this.titulo = umTitulo;
-    }
-    
-    public void setXAxis(String umX)
-    {
-        this.xAxis = umX;
-    }
-    
-    public void setYAxis(String umY)
-    {
-        this.yAxis = umY;
     }
     
     public void geraDataset(LocalDateTime inicio, LocalDateTime fim)

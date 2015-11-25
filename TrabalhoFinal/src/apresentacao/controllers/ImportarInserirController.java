@@ -45,7 +45,7 @@ public class ImportarInserirController implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == viewPrincipal.getImportarLogging())
+        if (e.getSource() == viewPrincipal.getImportar())
         {
             seletorDeLog.mostra();
         }

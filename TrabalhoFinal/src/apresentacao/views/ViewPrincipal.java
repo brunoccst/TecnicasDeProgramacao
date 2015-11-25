@@ -9,6 +9,7 @@ import apresentacao.controllers.ImportarInserirController;
 import apresentacao.controllers.GraficosController;
 import apresentacao.controllers.RelatoriosController;
 import apresentacao.graficos.GraficoDeBarras;
+import apresentacao.graficos.GraficoDePizza;
 import apresentacao.graficos.IGrafico;
 import java.awt.BorderLayout;
 import java.time.LocalDateTime;
@@ -98,9 +99,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
     ////////////////////TAB: Graficos
     
     //////Subtab: Barras
-    public String getAnoBarras()
+    public int getAnoBarras()
     {
-        return box_ano.getText();
+        String dt = box_ano.getText();
+        if (dt.equals("")) return LocalDateTime.now().getYear();
+        return Integer.parseInt(dt);
     }
     
     public JButton getGerarBarras()
@@ -112,12 +115,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
     //////Subtab: Pizza
     public String getDataInicioPizza()
     {
-        return box_dataInicio.getText();
+        return box_mesAnoInicio.getText();
     }
     
     public String getDataFimPizza()
     {
-        return box_dataFim.getText();
+        return box_mesAnoFim.getText();
     }
     
     public JButton getGerarPizza()
@@ -138,6 +141,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
         panel_barras.validate();
     }
     
+    public void setGraficoDePizza(GraficoDePizza p)
+    {
+        graficoDePizza = p;
+        panel_pizza.removeAll();
+        JPanel grafico = graficoDePizza.getPanel();
+        panel_pizza.add(grafico, BorderLayout.CENTER);
+        panel_pizza.validate();
+    }
+    
     public void setGeradorDePizza(GraficoDeBarras g)
     {
         graficoDePizza = g;
@@ -151,19 +163,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         {
             dropdown_parquimetro.addItem(id);
         }
-    }
-    
-    public JButton getImportarLogging()
-    {
-        return btn_importar;
-    }
-       
-    public int getDataBarras()
-    {
-        String dt = box_ano.getText();
-        System.out.println(dt);
-        if (dt.equals("")) return LocalDateTime.now().getYear();
-        return Integer.parseInt(dt);
     }
     
     public int getParquimetroSelecionado()
@@ -287,10 +286,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
         panel_barras = new java.awt.Panel();
         btn_gerarBarras = new javax.swing.JButton();
         tab_pizza = new javax.swing.JPanel();
-        lbl_dataInicio = new javax.swing.JLabel();
-        box_dataInicio = new javax.swing.JFormattedTextField();
-        lbl_fim = new javax.swing.JLabel();
-        box_dataFim = new javax.swing.JFormattedTextField();
+        lbl_mesAnoIncio = new javax.swing.JLabel();
+        box_mesAnoInicio = new javax.swing.JFormattedTextField();
+        lbl_mesAnoFim = new javax.swing.JLabel();
+        box_mesAnoFim = new javax.swing.JFormattedTextField();
         btn_gerarPizza = new javax.swing.JButton();
         panel_pizza = new java.awt.Panel();
 
@@ -427,13 +426,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         tab_graficos_content.addTab("Barras", tab_barras);
 
-        lbl_dataInicio.setText("Data inicio");
+        lbl_mesAnoIncio.setText("Mês/Ano Inicio");
 
-        box_dataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        box_mesAnoInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/yyyy"))));
 
-        lbl_fim.setText("Data fim");
+        lbl_mesAnoFim.setText("Mês/Ano Fim");
 
-        box_dataFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        box_mesAnoFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/yyyy"))));
 
         btn_gerarPizza.setText("Gerar");
 
@@ -447,16 +446,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(tab_pizzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tab_pizzaLayout.createSequentialGroup()
-                        .addComponent(lbl_dataInicio)
+                        .addComponent(lbl_mesAnoIncio)
                         .addGap(18, 18, 18)
-                        .addComponent(box_dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(box_mesAnoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_fim)
+                        .addComponent(lbl_mesAnoFim)
                         .addGap(18, 18, 18)
-                        .addComponent(box_dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(box_mesAnoFim, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_gerarPizza)
-                        .addGap(0, 176, Short.MAX_VALUE))
+                        .addGap(0, 134, Short.MAX_VALUE))
                     .addComponent(panel_pizza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -465,10 +464,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(tab_pizzaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(tab_pizzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(box_dataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_dataInicio)
-                    .addComponent(lbl_fim)
-                    .addComponent(box_dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_mesAnoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_mesAnoIncio)
+                    .addComponent(lbl_mesAnoFim)
+                    .addComponent(box_mesAnoFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_gerarPizza))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_pizza, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
@@ -550,8 +549,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField box_ano;
     private javax.swing.JFormattedTextField box_data;
-    private javax.swing.JFormattedTextField box_dataFim;
-    private javax.swing.JFormattedTextField box_dataInicio;
+    private javax.swing.JFormattedTextField box_mesAnoFim;
+    private javax.swing.JFormattedTextField box_mesAnoInicio;
     private javax.swing.JButton btn_atualizarLista;
     private javax.swing.JButton btn_gerarBarras;
     private javax.swing.JButton btn_gerarPizza;
@@ -562,8 +561,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> dropdown_parquimetro;
     private javax.swing.JLabel lbl_ano;
     private javax.swing.JLabel lbl_data;
-    private javax.swing.JLabel lbl_dataInicio;
-    private javax.swing.JLabel lbl_fim;
+    private javax.swing.JLabel lbl_mesAnoFim;
+    private javax.swing.JLabel lbl_mesAnoIncio;
     private javax.swing.JLabel lbl_parquimetro;
     private javax.swing.JTabbedPane moduloGerencial;
     private java.awt.Panel panel_barras;
