@@ -153,6 +153,20 @@ public class Controller implements ActionListener {
         {
             manageImportaDados(e);
         }
+        else if (e.getSource()== view.getGerarGeral())
+        {
+            int ano = view.getDataBarras();
+            ArrayList<Parquimetro> parquimetros = ParquimetroFacade.getParquimetros();
+            GeradorDeGrafico ger = new GeradorDeGrafico(parquimetros, ano);
+            view.setGeradorDeGrafico(ger);
+        }
+        else if (e.getSource()== view.getGerarPizza())
+        {
+            int ano = view.getDataBarras();
+            ArrayList<Parquimetro> parquimetros = ParquimetroFacade.getParquimetros();
+            GeradorDeGrafico ger = new GeradorDeGrafico(parquimetros, ano);
+            view.setGeradorDePizza(ger);
+        }
         else if (e.getSource()== view.getGerarRelatorio())
         {
             String data = view.getDataRelatorio();
@@ -202,7 +216,8 @@ public class Controller implements ActionListener {
                 //Gerar relatório de total de valor arrecadado, total de valor isento, filtrados por número do parquímetro e
                 //agrupados por mês ou ano;
                 Parquimetro parquimetro = ParquimetroFacade.getParquimetro(parquimetroId);
-                ArrayList<Double> mes = new ArrayList(12);
+                ArrayList<Double> mes = new ArrayList();
+                for (int i = 0; i < 12; i++)mes.add((Double)0.0);
                 for (Ticket t : parquimetro.getTickets()){
                     int ind = t.getEmissao().getMonthValue() - 1;
                     mes.set(ind, mes.get(ind) + t.getValor());

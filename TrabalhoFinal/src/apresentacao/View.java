@@ -25,13 +25,23 @@ import javax.swing.JPanel;
  */
 public class View extends javax.swing.JFrame {
     private GeradorDeGrafico geradorDeGrafico;
+    private GeradorDeGrafico geradorDePizza;
+ 
     /**
      * Creates new form NovaView
      */
     public View() {
-        int[] serie = {1, 2, 3, 4};
-        geradorDeGrafico = new GeradorDeGrafico(serie, 0, 3);
         initComponents();
+    }
+    
+    public void setGeradorDeGrafico(GeradorDeGrafico g)
+    {
+        geradorDeGrafico = g;
+    }
+    
+    public void setGeradorDePizza(GeradorDeGrafico g)
+    {
+        geradorDePizza = g;
     }
     
         
@@ -39,6 +49,8 @@ public class View extends javax.swing.JFrame {
         importarLogging.addActionListener(c);
         inserirDados.addActionListener(c); 
         gerarRelatorio.addActionListener(c);
+        gerarGeral.addActionListener(c);
+        gerarPizza.addActionListener(c);
     }
     
     public void setParquimetros(ArrayList<Parquimetro> parq)
@@ -59,6 +71,14 @@ public class View extends javax.swing.JFrame {
     public String getDataRelatorio()
     {
         return data_formatada.getText();
+    }
+    
+    public int getDataBarras()
+    {
+        String dt = data_barras.getText();
+        System.out.println(dt);
+        if (dt.equals("")) return LocalDateTime.now().getYear();
+        return Integer.parseInt(dt);
     }
     
     public int getParquimetroSelecionado()
@@ -99,6 +119,7 @@ public class View extends javax.swing.JFrame {
         + "Arquivo não encontrado"
         );
     }
+   
     
     public void erroDeES()
     {
@@ -152,6 +173,15 @@ public class View extends javax.swing.JFrame {
         return inserirDados;
     }
     
+        public JButton getGerarGeral()
+    {
+        return gerarGeral;
+    }
+    
+    public JButton getGerarPizza()
+    {
+        return gerarPizza;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,20 +210,17 @@ public class View extends javax.swing.JFrame {
         subgraficos = new javax.swing.JTabbedPane();
         geral = new javax.swing.JPanel();
         data_inicio_label = new javax.swing.JLabel();
-        data_inicio_text = new javax.swing.JFormattedTextField();
-        data_fim_label = new javax.swing.JLabel();
-        data_fim_text = new javax.swing.JFormattedTextField();
+        data_barras = new javax.swing.JFormattedTextField();
         painel_grafico = new java.awt.Panel();
         gerarGeral = new javax.swing.JButton();
         porParquimetro = new javax.swing.JPanel();
-        parquimetro_grafico = new javax.swing.JLabel();
-        seletor_parquimetro_grafico = new javax.swing.JComboBox<String>();
-        endereco_label = new javax.swing.JLabel();
-        endereco_texto = new javax.swing.JTextField();
         scroll_parquimetro = new javax.swing.JScrollPane();
         grafico_parquimetro = new javax.swing.JTextArea();
         ano_label = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        inicioPizza = new javax.swing.JFormattedTextField();
+        fim_label = new javax.swing.JLabel();
+        fimPizza = new javax.swing.JFormattedTextField();
+        gerarPizza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -284,13 +311,9 @@ public class View extends javax.swing.JFrame {
 
         moduloGerencial.addTab("Relatórios", relatorios);
 
-        data_inicio_label.setText("Data de início");
+        data_inicio_label.setText("Ano");
 
-        data_inicio_text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
-        data_fim_label.setText("Data de fim");
-
-        data_fim_text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        data_barras.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
 
         painel_grafico.setLayout(new java.awt.BorderLayout());
 
@@ -312,14 +335,10 @@ public class View extends javax.swing.JFrame {
                     .addGroup(geralLayout.createSequentialGroup()
                         .addComponent(data_inicio_label)
                         .addGap(18, 18, 18)
-                        .addComponent(data_inicio_text, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(data_fim_label)
-                        .addGap(18, 18, 18)
-                        .addComponent(data_fim_text, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(data_barras, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(207, 207, 207)
                         .addComponent(gerarGeral)
-                        .addGap(0, 102, Short.MAX_VALUE)))
+                        .addGap(0, 147, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         geralLayout.setVerticalGroup(
@@ -328,32 +347,28 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(geralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(data_inicio_label)
-                    .addComponent(data_inicio_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(data_fim_label)
-                    .addComponent(data_fim_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(data_barras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(gerarGeral))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painel_grafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(painel_grafico, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
         );
 
-        subgraficos.addTab("Geral", geral);
-
-        parquimetro_grafico.setText("Parquímetro");
-
-        seletor_parquimetro_grafico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        endereco_label.setText("Endereço");
-
-        endereco_texto.setEditable(false);
+        subgraficos.addTab("Barras", geral);
 
         grafico_parquimetro.setEditable(false);
         grafico_parquimetro.setColumns(20);
         grafico_parquimetro.setRows(5);
         scroll_parquimetro.setViewportView(grafico_parquimetro);
 
-        ano_label.setText("Ano");
+        ano_label.setText("Data inicio");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
+        inicioPizza.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+
+        fim_label.setText("Data fim");
+
+        fimPizza.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+
+        gerarPizza.setText("Gerar");
 
         javax.swing.GroupLayout porParquimetroLayout = new javax.swing.GroupLayout(porParquimetro);
         porParquimetro.setLayout(porParquimetroLayout);
@@ -362,41 +377,36 @@ public class View extends javax.swing.JFrame {
             .addGroup(porParquimetroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scroll_parquimetro)
+                    .addComponent(scroll_parquimetro, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                     .addGroup(porParquimetroLayout.createSequentialGroup()
-                        .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(parquimetro_grafico)
-                            .addComponent(endereco_label))
+                        .addComponent(ano_label)
                         .addGap(18, 18, 18)
-                        .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(endereco_texto)
-                            .addGroup(porParquimetroLayout.createSequentialGroup()
-                                .addComponent(seletor_parquimetro_grafico, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ano_label)
-                                .addGap(18, 18, 18)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 198, Short.MAX_VALUE)))))
+                        .addComponent(inicioPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(fim_label)
+                        .addGap(18, 18, 18)
+                        .addComponent(fimPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(gerarPizza)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         porParquimetroLayout.setVerticalGroup(
             porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(porParquimetroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(parquimetro_grafico)
-                    .addComponent(seletor_parquimetro_grafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ano_label)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(endereco_label)
-                    .addComponent(endereco_texto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scroll_parquimetro, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                    .addComponent(inicioPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(porParquimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fim_label)
+                        .addComponent(fimPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(gerarPizza)))
+                .addGap(18, 18, 18)
+                .addComponent(scroll_parquimetro, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
         );
 
-        subgraficos.addTab("Por parquímetro", porParquimetro);
+        subgraficos.addTab("Pizza", porParquimetro);
 
         javax.swing.GroupLayout graficosLayout = new javax.swing.GroupLayout(graficos);
         graficos.setLayout(graficosLayout);
@@ -478,26 +488,24 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel ano_label;
     private javax.swing.JTextPane console;
     private javax.swing.JScrollPane console_panel;
-    private javax.swing.JLabel data_fim_label;
-    private javax.swing.JFormattedTextField data_fim_text;
+    private javax.swing.JFormattedTextField data_barras;
     private javax.swing.JFormattedTextField data_formatada;
     private javax.swing.JLabel data_inicio_label;
-    private javax.swing.JFormattedTextField data_inicio_text;
     private javax.swing.JLabel data_label;
-    private javax.swing.JLabel endereco_label;
-    private javax.swing.JTextField endereco_texto;
+    private javax.swing.JFormattedTextField fimPizza;
+    private javax.swing.JLabel fim_label;
     private javax.swing.JPanel geral;
     private javax.swing.JButton gerarGeral;
+    private javax.swing.JButton gerarPizza;
     private javax.swing.JButton gerarRelatorio;
     private javax.swing.JTextArea grafico_parquimetro;
     private javax.swing.JPanel graficos;
     private javax.swing.JPanel importarInserir;
     private javax.swing.JButton importarLogging;
+    private javax.swing.JFormattedTextField inicioPizza;
     private javax.swing.JButton inserirDados;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JTabbedPane moduloGerencial;
     private java.awt.Panel painel_grafico;
-    private javax.swing.JLabel parquimetro_grafico;
     private javax.swing.JComboBox<String> parquimetro_selecionado;
     private javax.swing.JPanel porParquimetro;
     private javax.swing.JTextArea relatorio;
@@ -505,7 +513,6 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JScrollPane scroll_parquimetro;
     private javax.swing.JScrollPane scroll_relatorios;
     private javax.swing.JLabel seletor_parquimetro;
-    private javax.swing.JComboBox<String> seletor_parquimetro_grafico;
     private javax.swing.JTabbedPane subgraficos;
     // End of variables declaration//GEN-END:variables
  

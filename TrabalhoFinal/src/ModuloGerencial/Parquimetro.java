@@ -28,6 +28,28 @@ public class Parquimetro implements IParquimetro
         return endereco;
     }
     
+    public double getValorTotal()
+    {
+        double valor = 0.0;
+        for (Ticket t : tickets)
+        {
+            valor += t.getValor();
+        }
+        return valor;
+    }
+    
+        
+    public double getValorTotal(int ano)
+    {
+        double valor = 0.0;
+        for (Ticket t : tickets)
+        {
+            if (t.getEmissao().getYear() == ano)
+                valor += t.getValor();
+        }
+        return valor;
+    }
+    
     public void setEndereco(String novoEndereco){
         this.endereco = novoEndereco;
     }

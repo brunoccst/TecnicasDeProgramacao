@@ -1,5 +1,7 @@
 package apresentacao;
 
+import ModuloGerencial.Parquimetro;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -12,29 +14,26 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author Bruno
  */
 public class GeradorDeGrafico {
-   private int[] serie;
-   private int comeco;
-   private int fim;
-   
+   private ArrayList<Parquimetro> parquimetros;
+   private int ano;
    private DefaultCategoryDataset dados;
    private JFreeChart grafico;
    
-   public GeradorDeGrafico(int[] serie, int comeco, int fim) {
-     this.serie = serie;
-     this.comeco = comeco;
-     this.fim = fim;
+   public GeradorDeGrafico(ArrayList<Parquimetro> parq, int umAno) {
+     this.parquimetros = parq;
+     this.ano = umAno;
      this.dados = new DefaultCategoryDataset();
-     plotaMediaMovelSimples();
-     this.grafico = ChartFactory.createLineChart("Indicadores", 
-                           "Dias", "Valores", 
+     setDados();
+     this.grafico = ChartFactory.createStackedBarChart("Total arrecadado por parquimetro (" + ano +")", 
+                           "Parquimetro", "Valor", 
                              dados, 
                           PlotOrientation.VERTICAL, 
                            true, true, false);
    }
    
-   public void plotaMediaMovelSimples() {
-     for (int i = comeco; i <= fim; i++) {
-       dados.addValue(serie[i], "Dado " + i, Integer.valueOf(i));
+   public void setDados() {
+     for (int i = 0; i < parquimetros.size(); i++) {
+       dados.addValue(parquimetros.get(i).getValorTotal(ano), "" + parquimetros.get(i).getId(),Integer.valueOf(i+1));
      }
    }
    

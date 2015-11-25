@@ -248,8 +248,8 @@
                 <Container class="javax.swing.JPanel" name="geral">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Geral">
-                        <Property name="tabTitle" type="java.lang.String" value="Geral"/>
+                      <JTabbedPaneConstraints tabName="Barras">
+                        <Property name="tabTitle" type="java.lang.String" value="Barras"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -264,14 +264,10 @@
                                   <Group type="102" attributes="0">
                                       <Component id="data_inicio_label" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="data_inicio_text" min="-2" pref="81" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="data_fim_label" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="data_fim_text" min="-2" pref="88" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="data_barras" min="-2" pref="71" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
                                       <Component id="gerarGeral" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="102" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="147" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -284,13 +280,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="data_inicio_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="data_inicio_text" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="data_fim_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="data_fim_text" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="data_barras" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="gerarGeral" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="painel_grafico" max="32767" attributes="0"/>
+                              <Component id="painel_grafico" pref="178" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -298,25 +292,13 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="data_inicio_label">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Data de in&#xed;cio"/>
+                        <Property name="text" type="java.lang.String" value="Ano"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="data_inicio_text">
+                    <Component class="javax.swing.JFormattedTextField" name="data_barras">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format subtype="0" type="1"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="data_fim_label">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Data de fim"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="data_fim_text">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format subtype="0" type="1"/>
+                          <Format format="yyyy" subtype="-1" type="1"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -337,8 +319,8 @@
                 <Container class="javax.swing.JPanel" name="porParquimetro">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Por parqu&#xed;metro">
-                        <Property name="tabTitle" type="java.lang.String" value="Por parqu&#xed;metro"/>
+                      <JTabbedPaneConstraints tabName="Pizza">
+                        <Property name="tabTitle" type="java.lang.String" value="Pizza"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -349,24 +331,18 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="scroll_parquimetro" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="scroll_parquimetro" alignment="0" pref="521" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="parquimetro_grafico" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="endereco_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="ano_label" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="endereco_texto" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="seletor_parquimetro_grafico" min="-2" pref="122" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="ano_label" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="jFormattedTextField1" min="-2" pref="70" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="198" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="inicioPizza" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                      <Component id="fim_label" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="fimPizza" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="gerarPizza" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -377,54 +353,22 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="parquimetro_grafico" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="seletor_parquimetro_grafico" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ano_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="ano_label" min="-2" max="-2" attributes="0"/>
+                                  <Component id="inicioPizza" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="fim_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fimPizza" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="gerarPizza" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="endereco_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="endereco_texto" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="scroll_parquimetro" pref="154" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="scroll_parquimetro" pref="170" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="parquimetro_grafico">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Parqu&#xed;metro"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="seletor_parquimetro_grafico">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                          </StringArray>
-                        </Property>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="endereco_label">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="endereco_texto">
-                      <Properties>
-                        <Property name="editable" type="boolean" value="false"/>
-                      </Properties>
-                    </Component>
                     <Container class="javax.swing.JScrollPane" name="scroll_parquimetro">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -443,14 +387,31 @@
                     </Container>
                     <Component class="javax.swing.JLabel" name="ano_label">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Ano"/>
+                        <Property name="text" type="java.lang.String" value="Data inicio"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+                    <Component class="javax.swing.JFormattedTextField" name="inicioPizza">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format format="yyyy" subtype="-1" type="1"/>
+                          <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                         </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="fim_label">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Data fim"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JFormattedTextField" name="fimPizza">
+                      <Properties>
+                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                          <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="gerarPizza">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Gerar"/>
                       </Properties>
                     </Component>
                   </SubComponents>
