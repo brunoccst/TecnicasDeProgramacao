@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import Parquimetro_.Moeda;
+import negocio.entidades.Moeda;
 import org.junit.Assert;
 import org.junit.Test;
 import Parquimetro_.OParquimetro;
