@@ -32,6 +32,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         initComponents();
     }
     
+    public void mostra()
+    {
+        setVisible(true);
+    }
+    
     public void associaImportarInserir(ImportarInserirController c)
     {
         btn_importar.addActionListener(c);
@@ -40,7 +45,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     
     public void associaRelatorios(RelatoriosController c)
     {
-        btn_gerarRelatorio.addActionListener(c);
+        btn_gerarRelatorioGeral.addActionListener(c);
+        btn_gerarRelatorioIndividual.addActionListener(c);
         btn_atualizarLista.addActionListener(c);
     }
     
@@ -74,31 +80,67 @@ public class ViewPrincipal extends javax.swing.JFrame {
     ////////////////////
     
     ////////////////////TAB: Relatorios
-    public String getDataRelatorio()
+    ////////Subtab: Geral
+    public void escreveNoRelatorioGeral(String mensagem)
     {
-        return box_data.getText();
+        textArea_relatorioGeral.setText(mensagem);
     }
     
-    public String getParquimetroSelecionadoRelatorio()
+    public String getDataRelatorioGeral()
     {
-        String parq = (String) dropdown_parquimetro.getSelectedItem();
-        return parq;
+        return box_dataGeral.getText();
     }
     
-    public JButton getBotaoGerarRelatorio()
+    public JButton getBotaoGerarRelatorioGeral()
     {
-        return btn_gerarRelatorio;
+        return btn_gerarRelatorioGeral;
+    }
+    ////////
+    
+    ////////Subtab: Individual
+    public void escreveNoRelatorioIndividual(String mensagem)
+    {
+        textArea_relatorioIndividual.setText(mensagem);
+    }
+        
+    public void setListaDeParquimetros(List<String> ids)
+    {
+        dropdown_parquimetro.removeAllItems();
+        for (String id : ids)
+        {
+            dropdown_parquimetro.addItem(id);
+        }
+    }
+        
+    public int getParquimetroSelecionadoRelatorio()
+    {
+        return Integer.parseInt((String) dropdown_parquimetro.getSelectedItem());
+    }
+    
+    public JButton getBotaoGerarRelatorioIndividual()
+    {
+        return btn_gerarRelatorioIndividual;
     }
     
     public JButton getBotaoAtualizarLista()
     {
         return btn_atualizarLista;
     }
+    ////////
     ////////////////////
     
     ////////////////////TAB: Graficos
     
     //////Subtab: Barras
+    public void setGraficoDeBarras(GraficoDeBarras g)
+    {
+        graficoDeBarras = g;
+        panel_barras.removeAll();
+        JPanel grafico = graficoDeBarras.getPanel();
+        panel_barras.add(grafico, BorderLayout.CENTER);
+        panel_barras.validate();
+    }
+    
     public int getAnoBarras()
     {
         String dt = box_ano.getText();
@@ -113,6 +155,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
     //////
     
     //////Subtab: Pizza
+    public void setGraficoDePizza(GraficoDePizza p)
+    {
+        graficoDePizza = p;
+        panel_pizza.removeAll();
+        JPanel grafico = graficoDePizza.getPanel();
+        panel_pizza.add(grafico, BorderLayout.CENTER);
+        panel_pizza.validate();
+    }
+    
     public String getDataInicioPizza()
     {
         return box_mesAnoInicio.getText();
@@ -128,59 +179,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         return btn_gerarPizza;
     }
     //////
-    
     ////////////////////
     
-    //Graficos
-    public void setGraficoDeBarras(GraficoDeBarras g)
-    {
-        graficoDeBarras = g;
-        panel_barras.removeAll();
-        JPanel grafico = graficoDeBarras.getPanel();
-        panel_barras.add(grafico, BorderLayout.CENTER);
-        panel_barras.validate();
-    }
-    
-    public void setGraficoDePizza(GraficoDePizza p)
-    {
-        graficoDePizza = p;
-        panel_pizza.removeAll();
-        JPanel grafico = graficoDePizza.getPanel();
-        panel_pizza.add(grafico, BorderLayout.CENTER);
-        panel_pizza.validate();
-    }
-    
-    public void setGeradorDePizza(GraficoDeBarras g)
-    {
-        graficoDePizza = g;
-    }
-    
-    public void setListaDeParquimetros(List<String> ids)
-    {
-        dropdown_parquimetro.removeAllItems();
-        dropdown_parquimetro.addItem("Todos");
-        for (String id : ids)
-        {
-            dropdown_parquimetro.addItem(id);
-        }
-    }
-    
-    public int getParquimetroSelecionado()
-    {
-        String selected = (String) dropdown_parquimetro.getSelectedItem();
-        if (selected.equals("Todos")) return 0;
-        return Integer.parseInt(selected);
-    }
-    
-    public JButton getGerarRelatorio()
-    {
-        return btn_gerarRelatorio;
-    }
-    
-    public void mostra()
-    {
-        setVisible(true);
-    }
+
     
     public void adicionaLog(String path)
     {
@@ -239,17 +240,18 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
             sb.append(t.getSerial() + " || " + t.getEmissao() + " - " + t.getValidade() + "\n");
         }
-        relatorio.setText(sb.toString());
+        textArea_relatorioGeral.setText(sb.toString());
     }
     
-    public void setRelatorioValores(ArrayList<Double> mes, Parquimetro p){
+    public void setRelatorioValores(double[] valorPorMes, Parquimetro p){
         String[] mstr = {"JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"};
         StringBuilder sb = new StringBuilder();
         sb.append("Parquimetro " + p.getId() + "\n");
+        sb.append("--------------------------\n\n");
         for(int i = 0; i < 12; i++){
-            sb.append("Mes: " + mstr[i] + " Valor: " + mes.get(i) + "\n");
+            sb.append("Mes: " + mstr[i] + "______ Total: " + valorPorMes[i] + "\n");
         }
-        relatorio.setText(sb.toString());
+        textArea_relatorioIndividual.setText(sb.toString());
     }
     
    
@@ -270,14 +272,20 @@ public class ViewPrincipal extends javax.swing.JFrame {
         panel_importarInserir = new javax.swing.JScrollPane();
         console = new javax.swing.JTextPane();
         tab_relatorios = new javax.swing.JPanel();
+        tab_relatorios_content = new javax.swing.JTabbedPane();
+        tab_relatorioGeral = new javax.swing.JPanel();
         lbl_data = new javax.swing.JLabel();
-        box_data = new javax.swing.JFormattedTextField();
+        box_dataGeral = new javax.swing.JFormattedTextField();
+        btn_gerarRelatorioGeral = new javax.swing.JButton();
+        panel_relatorioGeral = new javax.swing.JScrollPane();
+        textArea_relatorioGeral = new javax.swing.JTextArea();
+        tab_relatorioIndividual = new javax.swing.JPanel();
         lbl_parquimetro = new javax.swing.JLabel();
         dropdown_parquimetro = new javax.swing.JComboBox<>();
-        btn_gerarRelatorio = new javax.swing.JButton();
+        btn_gerarRelatorioIndividual = new javax.swing.JButton();
         btn_atualizarLista = new javax.swing.JButton();
-        panel_relatorio = new javax.swing.JScrollPane();
-        relatorio = new javax.swing.JTextArea();
+        panel_relatorioIndividual = new javax.swing.JScrollPane();
+        textArea_relatorioIndividual = new javax.swing.JTextArea();
         tab_graficos = new javax.swing.JPanel();
         tab_graficos_content = new javax.swing.JTabbedPane();
         tab_barras = new javax.swing.JPanel();
@@ -324,65 +332,117 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(btn_importar)
                     .addComponent(btn_inserir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panel_importarInserir, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+                .addComponent(panel_importarInserir, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         moduloGerencial.addTab("Importar/Inserir", tab_importarInserir);
 
         lbl_data.setText("Data");
 
-        box_data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        box_dataGeral.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+
+        btn_gerarRelatorioGeral.setText("Gerar");
+
+        textArea_relatorioGeral.setEditable(false);
+        textArea_relatorioGeral.setColumns(20);
+        textArea_relatorioGeral.setRows(5);
+        panel_relatorioGeral.setViewportView(textArea_relatorioGeral);
+
+        javax.swing.GroupLayout tab_relatorioGeralLayout = new javax.swing.GroupLayout(tab_relatorioGeral);
+        tab_relatorioGeral.setLayout(tab_relatorioGeralLayout);
+        tab_relatorioGeralLayout.setHorizontalGroup(
+            tab_relatorioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_relatorioGeralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tab_relatorioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab_relatorioGeralLayout.createSequentialGroup()
+                        .addComponent(lbl_data)
+                        .addGap(18, 18, 18)
+                        .addComponent(box_dataGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_gerarRelatorioGeral)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panel_relatorioGeral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        tab_relatorioGeralLayout.setVerticalGroup(
+            tab_relatorioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_relatorioGeralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tab_relatorioGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_data)
+                    .addComponent(box_dataGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_gerarRelatorioGeral))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel_relatorioGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        tab_relatorios_content.addTab("Geral", tab_relatorioGeral);
 
         lbl_parquimetro.setText("Parquímetro");
 
         dropdown_parquimetro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btn_gerarRelatorio.setText("Gerar");
+        btn_gerarRelatorioIndividual.setText("Gerar");
 
         btn_atualizarLista.setText("Atualizar lista");
 
-        relatorio.setEditable(false);
-        relatorio.setColumns(20);
-        relatorio.setRows(5);
-        panel_relatorio.setViewportView(relatorio);
+        textArea_relatorioIndividual.setEditable(false);
+        textArea_relatorioIndividual.setColumns(20);
+        textArea_relatorioIndividual.setRows(5);
+        panel_relatorioIndividual.setViewportView(textArea_relatorioIndividual);
+
+        javax.swing.GroupLayout tab_relatorioIndividualLayout = new javax.swing.GroupLayout(tab_relatorioIndividual);
+        tab_relatorioIndividual.setLayout(tab_relatorioIndividualLayout);
+        tab_relatorioIndividualLayout.setHorizontalGroup(
+            tab_relatorioIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_relatorioIndividualLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tab_relatorioIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab_relatorioIndividualLayout.createSequentialGroup()
+                        .addComponent(lbl_parquimetro)
+                        .addGap(18, 18, 18)
+                        .addComponent(dropdown_parquimetro, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_gerarRelatorioIndividual)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_atualizarLista)
+                        .addGap(0, 176, Short.MAX_VALUE))
+                    .addComponent(panel_relatorioIndividual))
+                .addContainerGap())
+        );
+        tab_relatorioIndividualLayout.setVerticalGroup(
+            tab_relatorioIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab_relatorioIndividualLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tab_relatorioIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_parquimetro)
+                    .addComponent(dropdown_parquimetro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_gerarRelatorioIndividual)
+                    .addComponent(btn_atualizarLista))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_relatorioIndividual, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tab_relatorios_content.addTab("Individual", tab_relatorioIndividual);
 
         javax.swing.GroupLayout tab_relatoriosLayout = new javax.swing.GroupLayout(tab_relatorios);
         tab_relatorios.setLayout(tab_relatoriosLayout);
         tab_relatoriosLayout.setHorizontalGroup(
             tab_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_relatoriosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(tab_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_relatorio)
-                    .addGroup(tab_relatoriosLayout.createSequentialGroup()
-                        .addComponent(lbl_data)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(box_data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_parquimetro)
-                        .addGap(18, 18, 18)
-                        .addComponent(dropdown_parquimetro, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_gerarRelatorio)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_atualizarLista)
-                        .addGap(0, 28, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(tab_relatorios_content, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         tab_relatoriosLayout.setVerticalGroup(
             tab_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_relatoriosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(tab_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_data)
-                    .addComponent(box_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_parquimetro)
-                    .addComponent(dropdown_parquimetro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_gerarRelatorio)
-                    .addComponent(btn_atualizarLista))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_relatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(tab_relatorios_content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         moduloGerencial.addTab("Relatórios", tab_relatorios);
@@ -421,7 +481,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(box_ano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_gerarBarras))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_barras, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                .addComponent(panel_barras, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tab_graficos_content.addTab("Barras", tab_barras);
@@ -462,7 +523,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         tab_pizzaLayout.setVerticalGroup(
             tab_pizzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_pizzaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(tab_pizzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(box_mesAnoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_mesAnoIncio)
@@ -470,7 +531,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(box_mesAnoFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_gerarPizza))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_pizza, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                .addComponent(panel_pizza, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tab_graficos_content.addTab("Pizza", tab_pizza);
@@ -499,10 +561,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(moduloGerencial)
-                .addContainerGap())
+            .addComponent(moduloGerencial)
         );
 
         pack();
@@ -548,13 +607,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField box_ano;
-    private javax.swing.JFormattedTextField box_data;
+    private javax.swing.JFormattedTextField box_dataGeral;
     private javax.swing.JFormattedTextField box_mesAnoFim;
     private javax.swing.JFormattedTextField box_mesAnoInicio;
     private javax.swing.JButton btn_atualizarLista;
     private javax.swing.JButton btn_gerarBarras;
     private javax.swing.JButton btn_gerarPizza;
-    private javax.swing.JButton btn_gerarRelatorio;
+    private javax.swing.JButton btn_gerarRelatorioGeral;
+    private javax.swing.JButton btn_gerarRelatorioIndividual;
     private javax.swing.JButton btn_importar;
     private javax.swing.JButton btn_inserir;
     private javax.swing.JTextPane console;
@@ -568,14 +628,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private java.awt.Panel panel_barras;
     private javax.swing.JScrollPane panel_importarInserir;
     private java.awt.Panel panel_pizza;
-    private javax.swing.JScrollPane panel_relatorio;
-    private javax.swing.JTextArea relatorio;
+    private javax.swing.JScrollPane panel_relatorioGeral;
+    private javax.swing.JScrollPane panel_relatorioIndividual;
     private javax.swing.JPanel tab_barras;
     private javax.swing.JPanel tab_graficos;
     private javax.swing.JTabbedPane tab_graficos_content;
     private javax.swing.JPanel tab_importarInserir;
     private javax.swing.JPanel tab_pizza;
+    private javax.swing.JPanel tab_relatorioGeral;
+    private javax.swing.JPanel tab_relatorioIndividual;
     private javax.swing.JPanel tab_relatorios;
+    private javax.swing.JTabbedPane tab_relatorios_content;
+    private javax.swing.JTextArea textArea_relatorioGeral;
+    private javax.swing.JTextArea textArea_relatorioIndividual;
     // End of variables declaration//GEN-END:variables
  
 }

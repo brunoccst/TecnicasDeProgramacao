@@ -6,7 +6,6 @@ import apresentacao.views.ViewPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import negocio.FormatadorDeData;
 import negocio.entidades.Parquimetro;
