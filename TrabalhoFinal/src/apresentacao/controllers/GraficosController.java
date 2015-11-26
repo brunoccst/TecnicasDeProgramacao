@@ -52,9 +52,9 @@ public class GraficosController implements ActionListener {
             
             ArrayList<Parquimetro> parquimetros = ParquimetroFacade.getParquimetros();
             GraficoDePizza graficoDePizza = new GraficoDePizza(titulo);
-            graficoDePizza.setValorGeral(ParquimetroFacade.getValorTotalGeral(parquimetros));
-            graficoDePizza.setValorIsento(ParquimetroFacade.getValorTotalIsento(parquimetros));
-            graficoDePizza.geraDataset(dtInicio, dtFim);
+            graficoDePizza.setValorGeral(ParquimetroFacade.getValorTotalGeral(dtInicio, dtFim, parquimetros));
+            graficoDePizza.setValorIsento(ParquimetroFacade.getValorTotalIsento(dtInicio, dtFim, parquimetros));
+            graficoDePizza.geraDataset();
             
             viewPrincipal.setGraficoDePizza(graficoDePizza);
         }

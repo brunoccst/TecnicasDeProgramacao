@@ -35,24 +35,30 @@ public class ParquimetroFacade {
         return ps;
     }
     
-    public static double getValorTotalGeral(ArrayList<Parquimetro> parquimetros)
+    public static double getValorTotalGeral(LocalDateTime inicio, LocalDateTime fim, ArrayList<Parquimetro> parquimetros)
     {
         double total = 0.0;
         for (Parquimetro p : parquimetros)
         {
             for (ITicket t : p.getTickets())
-                if (t.getCartao() == null || !t.getCartao().isResidente()) total += t.getValor();
+                if ((t.getCartao() == null || !t.getCartao().isResidente())
+                        && t.getEmissao().getMonthValue() >= inicio.getMonthValue()
+                        && t.getValidade().getMonthValue() <= fim.getMonthValue())
+                    total += t.getValor();
         }
         return total;
     }
     
-    public static double getValorTotalIsento(ArrayList<Parquimetro> parquimetros)
+    public static double getValorTotalIsento(LocalDateTime inicio, LocalDateTime fim, ArrayList<Parquimetro> parquimetros)
     {
         double total = 0.0;
         for (Parquimetro p : parquimetros)
         {
             for (ITicket t : p.getTickets())
-                if (t.getCartao() != null && t.getCartao().isResidente()) total += t.getValor();
+                if ((t.getCartao() != null && t.getCartao().isResidente())
+                        && t.getEmissao().getMonthValue() >= inicio.getMonthValue()
+                        && t.getValidade().getMonthValue() <= fim.getMonthValue())
+                    total += t.getValor();
         }
         return total;
     }

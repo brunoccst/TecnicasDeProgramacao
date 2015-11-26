@@ -53,7 +53,7 @@ public class GraficoDePizza implements IGrafico {
         this.titulo = umTitulo;
     }
     
-    public void geraDataset(LocalDateTime inicio, LocalDateTime fim)
+    public void geraDataset()
     {
         dataset.setValue("Valor Geral", valorGeral);
         dataset.setValue("Valor Isento", valorIsento);
