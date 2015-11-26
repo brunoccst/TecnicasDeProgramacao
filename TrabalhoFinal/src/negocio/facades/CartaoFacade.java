@@ -15,7 +15,7 @@ import persistencia.dao.CartaoDAO;
  */
 public class CartaoFacade {
     public static Cartao createCartao(boolean residente){
-        return CartaoDAO.creteNewCartao(residente);
+        return CartaoDAO.createNewCartao(residente);
     }
     public static void updateCartao(Cartao cartao){
         

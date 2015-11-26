@@ -17,7 +17,13 @@ public class Organizador {
 
                     @Override
                     public int compare(ITicket o1, ITicket o2) {
-                        return Math.min(o1.getParquimetro().getId(), o2.getParquimetro().getId());
+                        if(o1.getParquimetro().getId() > o2.getParquimetro().getId()){
+                            return 1;
+                        }else if(o1.getParquimetro().getId() < o2.getParquimetro().getId()){
+                            return -1;
+                        }else {
+                            return 0;
+                        }
                     }
 
             });

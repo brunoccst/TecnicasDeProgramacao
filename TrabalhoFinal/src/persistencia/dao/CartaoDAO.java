@@ -22,7 +22,7 @@ import negocio.RandomString;
  */
 public class CartaoDAO {
     
-    public static Cartao creteNewCartao(boolean residente){
+    public static Cartao createNewCartao(boolean residente){
         
         Cartao novoCartao = null;
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
