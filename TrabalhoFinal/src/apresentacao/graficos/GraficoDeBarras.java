@@ -38,7 +38,6 @@ public class GraficoDeBarras implements IGrafico {
       return new ChartPanel(grafico);
    }
 
-    @Override
     public void setDados(ArrayList<Parquimetro> dados) {
         this.parquimetros = dados;
     }

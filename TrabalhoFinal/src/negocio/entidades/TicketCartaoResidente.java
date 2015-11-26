@@ -2,6 +2,7 @@ package negocio.entidades;
 
 import java.time.LocalDateTime;
 import negocio.facades.ConfiguracoesFacade;
+import negocio.interfaces.ICartao;
 import negocio.interfaces.IParquimetro;
 import negocio.interfaces.ITicket;
 
@@ -50,6 +51,11 @@ public class TicketCartaoResidente implements ITicket {
     @Override
     public int getSerial() {
         return ticket.getSerial();
+    }
+
+    @Override
+    public ICartao getCartao() {
+        return ticket.getCartao();
     }
     
 }

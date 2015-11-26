@@ -7,6 +7,7 @@ package negocio.facades;
 import negocio.entidades.Parquimetro;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import negocio.interfaces.ITicket;
 import persistencia.dao.ParquimetroDAO;
 /**
  *
@@ -32,5 +33,27 @@ public class ParquimetroFacade {
             p.addTickets(TicketFacade.getTickets(p, null, null));
         }
         return ps;
+    }
+    
+    public static double getValorTotalGeral(ArrayList<Parquimetro> parquimetros)
+    {
+        double total = 0.0;
+        for (Parquimetro p : parquimetros)
+        {
+            for (ITicket t : p.getTickets())
+                if (t.getCartao() == null || !t.getCartao().isResidente()) total += t.getValor();
+        }
+        return total;
+    }
+    
+    public static double getValorTotalIsento(ArrayList<Parquimetro> parquimetros)
+    {
+        double total = 0.0;
+        for (Parquimetro p : parquimetros)
+        {
+            for (ITicket t : p.getTickets())
+                if (t.getCartao() != null && t.getCartao().isResidente()) total += t.getValor();
+        }
+        return total;
     }
 }

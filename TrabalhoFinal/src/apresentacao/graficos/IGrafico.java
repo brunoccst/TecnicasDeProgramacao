@@ -14,7 +14,6 @@ import javax.swing.JPanel;
  * @author Bruno
  */
 public interface IGrafico {
-    void setDados(ArrayList<Parquimetro> dados);
     void setTitulo(String umTitulo);
     JPanel getPanel();
 }

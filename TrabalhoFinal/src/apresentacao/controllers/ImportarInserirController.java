@@ -115,6 +115,7 @@ public class ImportarInserirController implements ActionListener {
                 }
 
             }
+            logsEmMemoria.clear();
         }
     }
     

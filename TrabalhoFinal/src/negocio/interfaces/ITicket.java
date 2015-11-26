@@ -12,4 +12,5 @@ public interface ITicket {
     LocalDateTime getValidade();
     IParquimetro getParquimetro();
     double getValor();
+    ICartao getCartao();
 }

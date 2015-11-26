@@ -46,7 +46,7 @@ public class LeitorDeLog {
         while (line.equals(";"))
         {
               line = br.readLine();
-              if (line == null || line.equals(";")) break;
+              if (line == null || line.equals(";") || line.equals("")) break;
               
               int serial = Integer.parseInt(line);
               line = br.readLine();

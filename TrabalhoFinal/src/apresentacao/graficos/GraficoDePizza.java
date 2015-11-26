@@ -16,7 +16,7 @@ import org.jfree.data.general.DefaultPieDataset;
  * @author Bruno
  */
 public class GraficoDePizza implements IGrafico {
-   private ArrayList<Parquimetro> parquimetros;
+   private double valorGeral, valorIsento;
    private DefaultPieDataset dataset;
    private JFreeChart grafico;
    private String titulo;
@@ -27,10 +27,11 @@ public class GraficoDePizza implements IGrafico {
    
    public GraficoDePizza(String umTitulo) {
      this.titulo = umTitulo;
-     this.parquimetros = new ArrayList();
+     this.valorGeral = 0.0;
+     this.valorIsento = 0.0;
      this.dataset = new DefaultPieDataset();
      Locale locale = Locale.US;
-     this.grafico = ChartFactory.createPieChart(titulo, dataset, false, false, locale);
+     this.grafico = ChartFactory.createPieChart(titulo, dataset, true, true, locale);
    }
    
    @Override
@@ -38,9 +39,13 @@ public class GraficoDePizza implements IGrafico {
       return new ChartPanel(grafico);
    }
 
-    @Override
-    public void setDados(ArrayList<Parquimetro> dados) {
-        this.parquimetros = dados;
+
+    public void setValorGeral(double valor) {
+        this.valorGeral = valor;
+    }
+    
+    public void setValorIsento(double valor) {
+        this.valorIsento = valor;
     }
 
     @Override
@@ -50,9 +55,7 @@ public class GraficoDePizza implements IGrafico {
     
     public void geraDataset(LocalDateTime inicio, LocalDateTime fim)
     {
-        for (Parquimetro p : parquimetros)
-        {
-            dataset.setValue("" + p.getId(), p.getValorTotal(inicio, fim));
-        }
+        dataset.setValue("Valor Geral", valorGeral);
+        dataset.setValue("Valor Isento", valorIsento);
     }
 }

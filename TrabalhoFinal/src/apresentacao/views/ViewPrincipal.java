@@ -28,6 +28,7 @@ import negocio.interfaces.ITicket;
 public class ViewPrincipal extends javax.swing.JFrame {
     private IGrafico graficoDeBarras;
     private IGrafico graficoDePizza;
+    private final String[] mstr = {"JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"};
  
     public ViewPrincipal() {
         initComponents();
@@ -245,7 +246,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
     
     public void setRelatorioValores(double[] valorPorMes, Parquimetro p){
-        String[] mstr = {"JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"};
+        
         StringBuilder sb = new StringBuilder();
         sb.append("Parquimetro " + p.getId() + "\n");
         sb.append("--------------------------\n\n");
