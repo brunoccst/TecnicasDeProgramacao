@@ -3,13 +3,13 @@ package negocio.entidades;
 import negocio.interfaces.IParquimetro;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
+import negocio.interfaces.ITicket;
 
 public class Parquimetro implements IParquimetro
 {
     private int id;
     private String endereco;
-    private ArrayList<Ticket> tickets;
+    private ArrayList<ITicket> tickets;
     
     public Parquimetro(int id, String endereco)
     {
@@ -17,7 +17,7 @@ public class Parquimetro implements IParquimetro
         this.endereco = endereco;
     }
     
-    public void addTickets(ArrayList<Ticket> tickets){
+    public void addTickets(ArrayList<ITicket> tickets){
         this.tickets = tickets;
     }
     
@@ -32,7 +32,7 @@ public class Parquimetro implements IParquimetro
     public double getValorTotal()
     {
         double valor = 0.0;
-        for (Ticket t : tickets)
+        for (ITicket t : tickets)
         {
             valor += t.getValor();
         }
@@ -43,7 +43,7 @@ public class Parquimetro implements IParquimetro
     public double getValorTotal(int ano)
     {
         double valor = 0.0;
-        for (Ticket t : tickets)
+        for (ITicket t : tickets)
         {
             if (t.getEmissao().getYear() == ano)
                 valor += t.getValor();
@@ -54,7 +54,7 @@ public class Parquimetro implements IParquimetro
     public double getValorTotal(LocalDateTime inicio, LocalDateTime fim)
     {
         double valor = 0.0;
-        for (Ticket t : tickets)
+        for (ITicket t : tickets)
         {
             if ((t.getEmissao().isAfter(inicio) || t.getEmissao().isEqual(inicio))
                     && (t.getEmissao().isBefore(fim) || t.getEmissao().isEqual(fim)))
@@ -68,7 +68,7 @@ public class Parquimetro implements IParquimetro
     }
 
     @Override
-    public ArrayList<Ticket> getTickets() {
+    public ArrayList<ITicket> getTickets() {
         return tickets;
     }
     

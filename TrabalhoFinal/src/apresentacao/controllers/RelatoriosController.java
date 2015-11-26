@@ -11,6 +11,7 @@ import negocio.Organizador;
 import negocio.entidades.Parquimetro;
 import negocio.entidades.Ticket;
 import negocio.facades.ParquimetroFacade;
+import negocio.interfaces.ITicket;
 
 /**
  *
@@ -49,12 +50,12 @@ public class RelatoriosController implements ActionListener {
 
             LocalDateTime dataSelecionada = FormatadorDeData.FormataDataDiaMesAno(viewPrincipal.getDataRelatorioGeral());
             ArrayList<Parquimetro> parq = ParquimetroFacade.getParquimetros();
-            ArrayList<Ticket> tickets = new ArrayList<>();
+            ArrayList<ITicket> tickets = new ArrayList<>();
             
             for (Parquimetro p : parq)
             {
-                ArrayList<Ticket> ticketsP = p.getTickets();
-                for (Ticket t : ticketsP)
+                ArrayList<ITicket> ticketsP = p.getTickets();
+                for (ITicket t : ticketsP)
                 {
                     if ((t.getEmissao().getMonth().compareTo(dataSelecionada.getMonth()) == 0)
                             && t.getEmissao().getDayOfMonth() == dataSelecionada.getDayOfMonth())
@@ -81,7 +82,7 @@ public class RelatoriosController implements ActionListener {
             Parquimetro parquimetro = ParquimetroFacade.getParquimetro(parquimetroId);
 
 
-            for (Ticket t : parquimetro.getTickets()){
+            for (ITicket t : parquimetro.getTickets()){
                 int mes = t.getEmissao().getMonthValue() - 1;
                 valorPorMes[mes] += t.getValor();
             }

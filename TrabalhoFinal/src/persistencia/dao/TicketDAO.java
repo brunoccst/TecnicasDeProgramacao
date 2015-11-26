@@ -7,7 +7,6 @@ package persistencia.dao;
 
 import negocio.entidades.Ticket;
 import negocio.interfaces.IParquimetro;
-import negocio.entidades.Cartao;
 import negocio.interfaces.ICartao;
 import java.sql.Connection;
 import java.sql.Date;
@@ -17,6 +16,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import negocio.interfaces.ITicket;
 import persistencia.DBConnection;
 
 /**
@@ -76,7 +76,7 @@ public class TicketDAO {
         return serialTicket;
     }
     
-    public static ArrayList<Ticket> getTickets(IParquimetro parquimetro, LocalDateTime doDia, LocalDateTime ateDia){
+    public static ArrayList<ITicket> getTickets(IParquimetro parquimetro, LocalDateTime doDia, LocalDateTime ateDia){
         ArrayList tickets = null;
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {            
             String sql = "select * from Tickets where parquimetro_id = ?";

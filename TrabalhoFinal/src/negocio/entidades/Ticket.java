@@ -8,16 +8,16 @@ package negocio.entidades;
 import negocio.facades.ConfiguracoesFacade;
 import negocio.interfaces.ICartao;
 import negocio.interfaces.IParquimetro;
-import negocio.entidades.Configuracoes;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import negocio.interfaces.ITicket;
 
 
 /**
  *
  * @author feliperiffel
  */
-public class Ticket {
+public class Ticket implements ITicket {
     private IParquimetro parquimetro;
     private int serial;
     private LocalDateTime emissao;
@@ -37,18 +37,22 @@ public class Ticket {
         this.cartao = cartao;
     }
     
+    @Override
     public IParquimetro getParquimetro(){
         return parquimetro;
     }
     
+    @Override
     public int getSerial(){
         return serial;
     }
     
+    @Override
     public LocalDateTime getEmissao(){
         return emissao;
     }
     
+    @Override
     public LocalDateTime getValidade(){
         return validade;
     }
@@ -57,6 +61,7 @@ public class Ticket {
         return cartao;
     }
     
+    @Override
     public double getValor()
     {
         Configuracoes conf = ConfiguracoesFacade.getConfiguracoes();
@@ -71,7 +76,21 @@ public class Ticket {
         }
         
         return valor;
-        
-        
+    }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[Ticket ");
+        sb.append(serial);
+        sb.append(" | R$");
+        sb.append(getValor());
+        sb.append(" | ");
+        sb.append(emissao.getDayOfMonth() + "/" + emissao.getMonthValue() + "/" + emissao.getYear());
+        sb.append(" até ");
+        sb.append(validade.getDayOfMonth() + "/" + validade.getMonthValue() + "/" + validade.getYear());
+        sb.append("]");
+        return sb.toString();
     }
 }

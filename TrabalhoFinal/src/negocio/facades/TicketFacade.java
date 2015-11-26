@@ -11,13 +11,14 @@ import java.time.LocalDateTime;
 import persistencia.dao.TicketDAO;
 
 import java.util.ArrayList;
+import negocio.interfaces.ITicket;
 
 /**
  *
  * @author feliperiffel
  */
 public class TicketFacade {
-    public static ArrayList<Ticket> getTickets(Parquimetro parquimetro, LocalDateTime deDia, LocalDateTime ateDia){
+    public static ArrayList<ITicket> getTickets(Parquimetro parquimetro, LocalDateTime deDia, LocalDateTime ateDia){
         return TicketDAO.getTickets(parquimetro, deDia, deDia);
     }
     public static void addTicket(Ticket ticket) throws SQLIntegrityConstraintViolationException{

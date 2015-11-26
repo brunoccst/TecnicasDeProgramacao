@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import negocio.entidades.Parquimetro;
 import negocio.entidades.Ticket;
+import negocio.interfaces.ITicket;
 
 /**
  *
@@ -222,7 +223,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         );
     }
     
-    public void setRelatorioGeral(ArrayList<Ticket> tickets)
+    public void setRelatorioGeral(ArrayList<ITicket> tickets)
     {
         StringBuilder sb = new StringBuilder();
         LocalDateTime dataAtual = tickets.get(0).getEmissao();
@@ -231,7 +232,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         sb.append(dataAtual.getDayOfMonth() + "/" + dataAtual.getMonth() + "/" + dataAtual.getYear() + "\n");
         sb.append("[" + parquimetroAtual + "]\n\n");
         
-        for (Ticket t : tickets)
+        for (ITicket t : tickets)
         {
             if (t.getParquimetro().getId() > parquimetroAtual) 
             {
