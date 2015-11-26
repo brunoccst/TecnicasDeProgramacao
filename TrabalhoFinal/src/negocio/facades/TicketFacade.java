@@ -22,7 +22,7 @@ public class TicketFacade {
         return TicketDAO.getTickets(parquimetro, deDia, deDia);
     }
     public static void addTicket(Ticket ticket) throws SQLIntegrityConstraintViolationException{
-        TicketDAO.creteNewTicket(ticket.getParquimetro().getId(), ticket.getSerial(), ticket.getEmissao(), ticket.getValidade(), ticket.getCartao() != null ? ticket.getCartao().getID() : null);
+        TicketDAO.createNewTicket(ticket.getParquimetro().getId(), ticket.getSerial(), ticket.getEmissao(), ticket.getValidade(), ticket.getCartao() != null ? ticket.getCartao().getID() : null);
     }
     public static int getlastSerial(Parquimetro parquimetro){
         return TicketDAO.lastSerial(parquimetro);

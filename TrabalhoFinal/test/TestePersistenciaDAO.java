@@ -26,4 +26,12 @@ public class TestePersistenciaDAO {
         Cartao novoCartao = CartaoDAO.getCartao(id);
         Assert.assertTrue(novoCartao.getID().equals(id));
     }
+    
+    @Test
+    public void adicionarParquimetro(){
+        String ende = "Rua 42";
+        ParquimetroDAO.createNewParquimetro(ende);
+        Parquimetro parq = ParquimetroDAO.getParquimetro(ende);
+        Assert.assertNotNull(parq);
+    }
 }

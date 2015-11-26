@@ -17,7 +17,7 @@ import persistencia.DBConnection;
  * @author feliperiffel
  */
 public class ParquimetroDAO {
-    public static Parquimetro creteNewParquimetro(String endereco){
+    public static Parquimetro createNewParquimetro(String endereco){
         
         Parquimetro novoParquimetro = null;
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
@@ -83,5 +83,24 @@ public class ParquimetroDAO {
             ex.printStackTrace();
         }
         return parquimetros;
+    }
+    
+    public static Parquimetro getParquimetro(String endereco){
+        Parquimetro parquimetro = null;
+        try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
+            //Consultar dados da tabela
+            String sql = "select * from Parquimetros where endereco = ?";
+            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                comando.setString(1, endereco);
+                try (ResultSet resultados = comando.executeQuery()) {
+                    while (resultados.next()) {
+                        parquimetro = new Parquimetro(resultados.getInt("id"), resultados.getString("endereco"));
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return parquimetro;
     }
 }

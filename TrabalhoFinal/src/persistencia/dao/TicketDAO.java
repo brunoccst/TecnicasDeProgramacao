@@ -25,7 +25,7 @@ import persistencia.DBConnection;
  */
 public class TicketDAO {
     
-    public static void creteNewTicket(int prquimetroID, int serial, LocalDateTime emissao, LocalDateTime validade, String cartaoID) throws SQLIntegrityConstraintViolationException{
+    public static void createNewTicket(int prquimetroID, int serial, LocalDateTime emissao, LocalDateTime validade, String cartaoID) throws SQLIntegrityConstraintViolationException{
         try (Connection conexao = DBConnection.getConexaoViaDriverManager()) {
             String sql;
             //Inserir dados na tabela

@@ -85,7 +85,7 @@ public class ImportarInserirController implements ActionListener {
                         String cartaoID = tic.getCartao() != null ? tic.getCartao().getID() : null;
                         try 
                         {
-                            TicketDAO.creteNewTicket(tic.getParquimetro().getId(), tic.getSerial(), tic.getEmissao(), tic.getValidade(), cartaoID);
+                            TicketDAO.createNewTicket(tic.getParquimetro().getId(), tic.getSerial(), tic.getEmissao(), tic.getValidade(), cartaoID);
                         }
                         catch (SQLIntegrityConstraintViolationException ex)
                         {

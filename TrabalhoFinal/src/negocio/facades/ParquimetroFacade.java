@@ -15,7 +15,7 @@ import persistencia.dao.ParquimetroDAO;
  */
 public class ParquimetroFacade {
     public static Parquimetro criaParquimetro(String endereco){
-        Parquimetro p = ParquimetroDAO.creteNewParquimetro(endereco);
+        Parquimetro p = ParquimetroDAO.createNewParquimetro(endereco);
         p.addTickets(TicketFacade.getTickets(p, null, null));
         return p;
     }
